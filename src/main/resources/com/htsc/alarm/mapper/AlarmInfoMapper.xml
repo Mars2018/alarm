@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htsc.alarm.dao.AlarmInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.AlarmInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip_source" property="ipSource" jdbcType="VARCHAR" />
+    <result column="alarm_name" property="alarmName" jdbcType="VARCHAR" />
+    <result column="alarm_type" property="alarmType" jdbcType="VARCHAR" />
+    <result column="alarm_value" property="alarmValue" jdbcType="VARCHAR" />
+    <result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
+    <result column="alarm_desc" property="alarmDesc" jdbcType="VARCHAR" />
+    <result column="start_datetime" property="startDatetime" jdbcType="TIMESTAMP" />
+    <result column="end_datetime" property="endDatetime" jdbcType="TIMESTAMP" />
+    <result column="alarm_clear" property="alarmClear" jdbcType="INTEGER" />
+    <result column="clear_record" property="clearRecord" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ip_source, alarm_name, alarm_type, alarm_value, alarm_level, alarm_desc, start_datetime, 
+    end_datetime, alarm_clear, clear_record
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.AlarmInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from alarm_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from alarm_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htsc.alarm.domain.AlarmInfo" >
+    insert into alarm_info (id, ip_source, alarm_name, 
+      alarm_type, alarm_value, alarm_level, 
+      alarm_desc, start_datetime, end_datetime, 
+      alarm_clear, clear_record)
+    values (#{id,jdbcType=INTEGER}, #{ipSource,jdbcType=VARCHAR}, #{alarmName,jdbcType=VARCHAR}, 
+      #{alarmType,jdbcType=VARCHAR}, #{alarmValue,jdbcType=VARCHAR}, #{alarmLevel,jdbcType=VARCHAR}, 
+      #{alarmDesc,jdbcType=VARCHAR}, #{startDatetime,jdbcType=TIMESTAMP}, #{endDatetime,jdbcType=TIMESTAMP}, 
+      #{alarmClear,jdbcType=INTEGER}, #{clearRecord,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.AlarmInfo" >
+    insert into alarm_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ipSource != null" >
+        ip_source,
+      </if>
+      <if test="alarmName != null" >
+        alarm_name,
+      </if>
+      <if test="alarmType != null" >
+        alarm_type,
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value,
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level,
+      </if>
+      <if test="alarmDesc != null" >
+        alarm_desc,
+      </if>
+      <if test="startDatetime != null" >
+        start_datetime,
+      </if>
+      <if test="endDatetime != null" >
+        end_datetime,
+      </if>
+      <if test="alarmClear != null" >
+        alarm_clear,
+      </if>
+      <if test="clearRecord != null" >
+        clear_record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ipSource != null" >
+        #{ipSource,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmName != null" >
+        #{alarmName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        #{alarmValue,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevel != null" >
+        #{alarmLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDesc != null" >
+        #{alarmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="startDatetime != null" >
+        #{startDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDatetime != null" >
+        #{endDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmClear != null" >
+        #{alarmClear,jdbcType=INTEGER},
+      </if>
+      <if test="clearRecord != null" >
+        #{clearRecord,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.htsc.alarm.domain.AlarmInfoExample" resultType="java.lang.Integer" >
+    select count(*) from alarm_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.AlarmInfo" >
+    update alarm_info
+    <set >
+      <if test="ipSource != null" >
+        ip_source = #{ipSource,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmName != null" >
+        alarm_name = #{alarmName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        alarm_type = #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value = #{alarmValue,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level = #{alarmLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDesc != null" >
+        alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="startDatetime != null" >
+        start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDatetime != null" >
+        end_datetime = #{endDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmClear != null" >
+        alarm_clear = #{alarmClear,jdbcType=INTEGER},
+      </if>
+      <if test="clearRecord != null" >
+        clear_record = #{clearRecord,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.AlarmInfo" >
+    update alarm_info
+    set ip_source = #{ipSource,jdbcType=VARCHAR},
+      alarm_name = #{alarmName,jdbcType=VARCHAR},
+      alarm_type = #{alarmType,jdbcType=VARCHAR},
+      alarm_value = #{alarmValue,jdbcType=VARCHAR},
+      alarm_level = #{alarmLevel,jdbcType=VARCHAR},
+      alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+      start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
+      end_datetime = #{endDatetime,jdbcType=TIMESTAMP},
+      alarm_clear = #{alarmClear,jdbcType=INTEGER},
+      clear_record = #{clearRecord,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

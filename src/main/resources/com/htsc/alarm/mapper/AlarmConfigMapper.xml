@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htsc.alarm.dao.AlarmConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.AlarmConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="alamr_name" property="alamrName" jdbcType="VARCHAR" />
+    <result column="alarm_type" property="alarmType" jdbcType="VARCHAR" />
+    <result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
+    <result column="value_aggregate_type" property="valueAggregateType" jdbcType="VARCHAR" />
+    <result column="stifle_time" property="stifleTime" jdbcType="INTEGER" />
+    <result column="operation_type" property="operationType" jdbcType="VARCHAR" />
+    <result column="alarm_desc" property="alarmDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.htsc.alarm.domain.AlarmConfigWithBLOBs" extends="BaseResultMap" >
+    <result column="alarm_value" property="alarmValue" jdbcType="LONGVARCHAR" />
+    <result column="operation_date" property="operationDate" jdbcType="LONGVARCHAR" />
+    <result column="inoperation_data" property="inoperationData" jdbcType="LONGVARCHAR" />
+    <result column="alarm_dependencies" property="alarmDependencies" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, alamr_name, alarm_type, alarm_level, value_aggregate_type, stifle_time, operation_type, 
+    alarm_desc
+  </sql>
+  <sql id="Blob_Column_List" >
+    alarm_value, operation_date, inoperation_data, alarm_dependencies
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.htsc.alarm.domain.AlarmConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from alarm_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.AlarmConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from alarm_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from alarm_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from alarm_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.htsc.alarm.domain.AlarmConfigWithBLOBs" >
+    insert into alarm_config (id, alamr_name, alarm_type, 
+      alarm_level, value_aggregate_type, stifle_time, 
+      operation_type, alarm_desc, alarm_value, 
+      operation_date, inoperation_data, 
+      alarm_dependencies)
+    values (#{id,jdbcType=INTEGER}, #{alamrName,jdbcType=VARCHAR}, #{alarmType,jdbcType=VARCHAR}, 
+      #{alarmLevel,jdbcType=VARCHAR}, #{valueAggregateType,jdbcType=VARCHAR}, #{stifleTime,jdbcType=INTEGER}, 
+      #{operationType,jdbcType=VARCHAR}, #{alarmDesc,jdbcType=VARCHAR}, #{alarmValue,jdbcType=LONGVARCHAR}, 
+      #{operationDate,jdbcType=LONGVARCHAR}, #{inoperationData,jdbcType=LONGVARCHAR}, 
+      #{alarmDependencies,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.AlarmConfigWithBLOBs" >
+    insert into alarm_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="alamrName != null" >
+        alamr_name,
+      </if>
+      <if test="alarmType != null" >
+        alarm_type,
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level,
+      </if>
+      <if test="valueAggregateType != null" >
+        value_aggregate_type,
+      </if>
+      <if test="stifleTime != null" >
+        stifle_time,
+      </if>
+      <if test="operationType != null" >
+        operation_type,
+      </if>
+      <if test="alarmDesc != null" >
+        alarm_desc,
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value,
+      </if>
+      <if test="operationDate != null" >
+        operation_date,
+      </if>
+      <if test="inoperationData != null" >
+        inoperation_data,
+      </if>
+      <if test="alarmDependencies != null" >
+        alarm_dependencies,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="alamrName != null" >
+        #{alamrName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevel != null" >
+        #{alarmLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="valueAggregateType != null" >
+        #{valueAggregateType,jdbcType=VARCHAR},
+      </if>
+      <if test="stifleTime != null" >
+        #{stifleTime,jdbcType=INTEGER},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDesc != null" >
+        #{alarmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        #{alarmValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="operationDate != null" >
+        #{operationDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inoperationData != null" >
+        #{inoperationData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="alarmDependencies != null" >
+        #{alarmDependencies,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.htsc.alarm.domain.AlarmConfigExample" resultType="java.lang.Integer" >
+    select count(*) from alarm_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.AlarmConfigWithBLOBs" >
+    update alarm_config
+    <set >
+      <if test="alamrName != null" >
+        alamr_name = #{alamrName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        alarm_type = #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level = #{alarmLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="valueAggregateType != null" >
+        value_aggregate_type = #{valueAggregateType,jdbcType=VARCHAR},
+      </if>
+      <if test="stifleTime != null" >
+        stifle_time = #{stifleTime,jdbcType=INTEGER},
+      </if>
+      <if test="operationType != null" >
+        operation_type = #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmDesc != null" >
+        alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value = #{alarmValue,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="operationDate != null" >
+        operation_date = #{operationDate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inoperationData != null" >
+        inoperation_data = #{inoperationData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="alarmDependencies != null" >
+        alarm_dependencies = #{alarmDependencies,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.htsc.alarm.domain.AlarmConfigWithBLOBs" >
+    update alarm_config
+    set alamr_name = #{alamrName,jdbcType=VARCHAR},
+      alarm_type = #{alarmType,jdbcType=VARCHAR},
+      alarm_level = #{alarmLevel,jdbcType=VARCHAR},
+      value_aggregate_type = #{valueAggregateType,jdbcType=VARCHAR},
+      stifle_time = #{stifleTime,jdbcType=INTEGER},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+      alarm_value = #{alarmValue,jdbcType=LONGVARCHAR},
+      operation_date = #{operationDate,jdbcType=LONGVARCHAR},
+      inoperation_data = #{inoperationData,jdbcType=LONGVARCHAR},
+      alarm_dependencies = #{alarmDependencies,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.AlarmConfig" >
+    update alarm_config
+    set alamr_name = #{alamrName,jdbcType=VARCHAR},
+      alarm_type = #{alarmType,jdbcType=VARCHAR},
+      alarm_level = #{alarmLevel,jdbcType=VARCHAR},
+      value_aggregate_type = #{valueAggregateType,jdbcType=VARCHAR},
+      stifle_time = #{stifleTime,jdbcType=INTEGER},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      alarm_desc = #{alarmDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
