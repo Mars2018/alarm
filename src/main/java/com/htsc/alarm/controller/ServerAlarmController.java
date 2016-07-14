@@ -7,4 +7,5 @@ import org.springframework.stereotype.Controller;
  */
 @Controller(value = "serverAlarm")
 public class ServerAlarmController {
+
 }

@@ -1,6 +1,7 @@
 package com.htsc.alarm.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AlarmConfigExample {
@@ -164,73 +165,73 @@ public class AlarmConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameIsNull() {
-            addCriterion("alamr_name is null");
+        public Criteria andAlarmNameIsNull() {
+            addCriterion("alarm_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameIsNotNull() {
-            addCriterion("alamr_name is not null");
+        public Criteria andAlarmNameIsNotNull() {
+            addCriterion("alarm_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameEqualTo(String value) {
-            addCriterion("alamr_name =", value, "alamrName");
+        public Criteria andAlarmNameEqualTo(String value) {
+            addCriterion("alarm_name =", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameNotEqualTo(String value) {
-            addCriterion("alamr_name <>", value, "alamrName");
+        public Criteria andAlarmNameNotEqualTo(String value) {
+            addCriterion("alarm_name <>", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameGreaterThan(String value) {
-            addCriterion("alamr_name >", value, "alamrName");
+        public Criteria andAlarmNameGreaterThan(String value) {
+            addCriterion("alarm_name >", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameGreaterThanOrEqualTo(String value) {
-            addCriterion("alamr_name >=", value, "alamrName");
+        public Criteria andAlarmNameGreaterThanOrEqualTo(String value) {
+            addCriterion("alarm_name >=", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameLessThan(String value) {
-            addCriterion("alamr_name <", value, "alamrName");
+        public Criteria andAlarmNameLessThan(String value) {
+            addCriterion("alarm_name <", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameLessThanOrEqualTo(String value) {
-            addCriterion("alamr_name <=", value, "alamrName");
+        public Criteria andAlarmNameLessThanOrEqualTo(String value) {
+            addCriterion("alarm_name <=", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameLike(String value) {
-            addCriterion("alamr_name like", value, "alamrName");
+        public Criteria andAlarmNameLike(String value) {
+            addCriterion("alarm_name like", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameNotLike(String value) {
-            addCriterion("alamr_name not like", value, "alamrName");
+        public Criteria andAlarmNameNotLike(String value) {
+            addCriterion("alarm_name not like", value, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameIn(List<String> values) {
-            addCriterion("alamr_name in", values, "alamrName");
+        public Criteria andAlarmNameIn(List<String> values) {
+            addCriterion("alarm_name in", values, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameNotIn(List<String> values) {
-            addCriterion("alamr_name not in", values, "alamrName");
+        public Criteria andAlarmNameNotIn(List<String> values) {
+            addCriterion("alarm_name not in", values, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameBetween(String value1, String value2) {
-            addCriterion("alamr_name between", value1, value2, "alamrName");
+        public Criteria andAlarmNameBetween(String value1, String value2) {
+            addCriterion("alarm_name between", value1, value2, "alarmName");
             return (Criteria) this;
         }
 
-        public Criteria andAlamrNameNotBetween(String value1, String value2) {
-            addCriterion("alamr_name not between", value1, value2, "alamrName");
+        public Criteria andAlarmNameNotBetween(String value1, String value2) {
+            addCriterion("alarm_name not between", value1, value2, "alarmName");
             return (Criteria) this;
         }
 
@@ -374,73 +375,133 @@ public class AlarmConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeIsNull() {
-            addCriterion("value_aggregate_type is null");
+        public Criteria andAlarmValueIsNull() {
+            addCriterion("alarm_value is null");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeIsNotNull() {
-            addCriterion("value_aggregate_type is not null");
+        public Criteria andAlarmValueIsNotNull() {
+            addCriterion("alarm_value is not null");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeEqualTo(String value) {
-            addCriterion("value_aggregate_type =", value, "valueAggregateType");
+        public Criteria andAlarmValueEqualTo(Integer value) {
+            addCriterion("alarm_value =", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeNotEqualTo(String value) {
-            addCriterion("value_aggregate_type <>", value, "valueAggregateType");
+        public Criteria andAlarmValueNotEqualTo(Integer value) {
+            addCriterion("alarm_value <>", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeGreaterThan(String value) {
-            addCriterion("value_aggregate_type >", value, "valueAggregateType");
+        public Criteria andAlarmValueGreaterThan(Integer value) {
+            addCriterion("alarm_value >", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("value_aggregate_type >=", value, "valueAggregateType");
+        public Criteria andAlarmValueGreaterThanOrEqualTo(Integer value) {
+            addCriterion("alarm_value >=", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeLessThan(String value) {
-            addCriterion("value_aggregate_type <", value, "valueAggregateType");
+        public Criteria andAlarmValueLessThan(Integer value) {
+            addCriterion("alarm_value <", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeLessThanOrEqualTo(String value) {
-            addCriterion("value_aggregate_type <=", value, "valueAggregateType");
+        public Criteria andAlarmValueLessThanOrEqualTo(Integer value) {
+            addCriterion("alarm_value <=", value, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeLike(String value) {
-            addCriterion("value_aggregate_type like", value, "valueAggregateType");
+        public Criteria andAlarmValueIn(List<Integer> values) {
+            addCriterion("alarm_value in", values, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeNotLike(String value) {
-            addCriterion("value_aggregate_type not like", value, "valueAggregateType");
+        public Criteria andAlarmValueNotIn(List<Integer> values) {
+            addCriterion("alarm_value not in", values, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeIn(List<String> values) {
-            addCriterion("value_aggregate_type in", values, "valueAggregateType");
+        public Criteria andAlarmValueBetween(Integer value1, Integer value2) {
+            addCriterion("alarm_value between", value1, value2, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeNotIn(List<String> values) {
-            addCriterion("value_aggregate_type not in", values, "valueAggregateType");
+        public Criteria andAlarmValueNotBetween(Integer value1, Integer value2) {
+            addCriterion("alarm_value not between", value1, value2, "alarmValue");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeBetween(String value1, String value2) {
-            addCriterion("value_aggregate_type between", value1, value2, "valueAggregateType");
+        public Criteria andStatisticalMethodIsNull() {
+            addCriterion("statistical_method is null");
             return (Criteria) this;
         }
 
-        public Criteria andValueAggregateTypeNotBetween(String value1, String value2) {
-            addCriterion("value_aggregate_type not between", value1, value2, "valueAggregateType");
+        public Criteria andStatisticalMethodIsNotNull() {
+            addCriterion("statistical_method is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodEqualTo(String value) {
+            addCriterion("statistical_method =", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodNotEqualTo(String value) {
+            addCriterion("statistical_method <>", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodGreaterThan(String value) {
+            addCriterion("statistical_method >", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("statistical_method >=", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodLessThan(String value) {
+            addCriterion("statistical_method <", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodLessThanOrEqualTo(String value) {
+            addCriterion("statistical_method <=", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodLike(String value) {
+            addCriterion("statistical_method like", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodNotLike(String value) {
+            addCriterion("statistical_method not like", value, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodIn(List<String> values) {
+            addCriterion("statistical_method in", values, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodNotIn(List<String> values) {
+            addCriterion("statistical_method not in", values, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodBetween(String value1, String value2) {
+            addCriterion("statistical_method between", value1, value2, "statisticalMethod");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatisticalMethodNotBetween(String value1, String value2) {
+            addCriterion("statistical_method not between", value1, value2, "statisticalMethod");
             return (Criteria) this;
         }
 
@@ -504,73 +565,263 @@ public class AlarmConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeIsNull() {
-            addCriterion("operation_type is null");
+        public Criteria andAvailableDayIsNull() {
+            addCriterion("available_day is null");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeIsNotNull() {
-            addCriterion("operation_type is not null");
+        public Criteria andAvailableDayIsNotNull() {
+            addCriterion("available_day is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeEqualTo(String value) {
-            addCriterion("operation_type =", value, "operationType");
+        public Criteria andAvailableDayEqualTo(String value) {
+            addCriterion("available_day =", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeNotEqualTo(String value) {
-            addCriterion("operation_type <>", value, "operationType");
+        public Criteria andAvailableDayNotEqualTo(String value) {
+            addCriterion("available_day <>", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeGreaterThan(String value) {
-            addCriterion("operation_type >", value, "operationType");
+        public Criteria andAvailableDayGreaterThan(String value) {
+            addCriterion("available_day >", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("operation_type >=", value, "operationType");
+        public Criteria andAvailableDayGreaterThanOrEqualTo(String value) {
+            addCriterion("available_day >=", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeLessThan(String value) {
-            addCriterion("operation_type <", value, "operationType");
+        public Criteria andAvailableDayLessThan(String value) {
+            addCriterion("available_day <", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeLessThanOrEqualTo(String value) {
-            addCriterion("operation_type <=", value, "operationType");
+        public Criteria andAvailableDayLessThanOrEqualTo(String value) {
+            addCriterion("available_day <=", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeLike(String value) {
-            addCriterion("operation_type like", value, "operationType");
+        public Criteria andAvailableDayLike(String value) {
+            addCriterion("available_day like", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeNotLike(String value) {
-            addCriterion("operation_type not like", value, "operationType");
+        public Criteria andAvailableDayNotLike(String value) {
+            addCriterion("available_day not like", value, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeIn(List<String> values) {
-            addCriterion("operation_type in", values, "operationType");
+        public Criteria andAvailableDayIn(List<String> values) {
+            addCriterion("available_day in", values, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeNotIn(List<String> values) {
-            addCriterion("operation_type not in", values, "operationType");
+        public Criteria andAvailableDayNotIn(List<String> values) {
+            addCriterion("available_day not in", values, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeBetween(String value1, String value2) {
-            addCriterion("operation_type between", value1, value2, "operationType");
+        public Criteria andAvailableDayBetween(String value1, String value2) {
+            addCriterion("available_day between", value1, value2, "availableDay");
             return (Criteria) this;
         }
 
-        public Criteria andOperationTypeNotBetween(String value1, String value2) {
-            addCriterion("operation_type not between", value1, value2, "operationType");
+        public Criteria andAvailableDayNotBetween(String value1, String value2) {
+            addCriterion("available_day not between", value1, value2, "availableDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeIsNull() {
+            addCriterion("start_datetime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeIsNotNull() {
+            addCriterion("start_datetime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeEqualTo(Date value) {
+            addCriterion("start_datetime =", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeNotEqualTo(Date value) {
+            addCriterion("start_datetime <>", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeGreaterThan(Date value) {
+            addCriterion("start_datetime >", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("start_datetime >=", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeLessThan(Date value) {
+            addCriterion("start_datetime <", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeLessThanOrEqualTo(Date value) {
+            addCriterion("start_datetime <=", value, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeIn(List<Date> values) {
+            addCriterion("start_datetime in", values, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeNotIn(List<Date> values) {
+            addCriterion("start_datetime not in", values, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeBetween(Date value1, Date value2) {
+            addCriterion("start_datetime between", value1, value2, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartDatetimeNotBetween(Date value1, Date value2) {
+            addCriterion("start_datetime not between", value1, value2, "startDatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeIsNull() {
+            addCriterion("end_datatime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeIsNotNull() {
+            addCriterion("end_datatime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeEqualTo(Date value) {
+            addCriterion("end_datatime =", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeNotEqualTo(Date value) {
+            addCriterion("end_datatime <>", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeGreaterThan(Date value) {
+            addCriterion("end_datatime >", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("end_datatime >=", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeLessThan(Date value) {
+            addCriterion("end_datatime <", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeLessThanOrEqualTo(Date value) {
+            addCriterion("end_datatime <=", value, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeIn(List<Date> values) {
+            addCriterion("end_datatime in", values, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeNotIn(List<Date> values) {
+            addCriterion("end_datatime not in", values, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeBetween(Date value1, Date value2) {
+            addCriterion("end_datatime between", value1, value2, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDatatimeNotBetween(Date value1, Date value2) {
+            addCriterion("end_datatime not between", value1, value2, "endDatatime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesIsNull() {
+            addCriterion("alarm_dependencies is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesIsNotNull() {
+            addCriterion("alarm_dependencies is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesEqualTo(String value) {
+            addCriterion("alarm_dependencies =", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesNotEqualTo(String value) {
+            addCriterion("alarm_dependencies <>", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesGreaterThan(String value) {
+            addCriterion("alarm_dependencies >", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesGreaterThanOrEqualTo(String value) {
+            addCriterion("alarm_dependencies >=", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesLessThan(String value) {
+            addCriterion("alarm_dependencies <", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesLessThanOrEqualTo(String value) {
+            addCriterion("alarm_dependencies <=", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesLike(String value) {
+            addCriterion("alarm_dependencies like", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesNotLike(String value) {
+            addCriterion("alarm_dependencies not like", value, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesIn(List<String> values) {
+            addCriterion("alarm_dependencies in", values, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesNotIn(List<String> values) {
+            addCriterion("alarm_dependencies not in", values, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesBetween(String value1, String value2) {
+            addCriterion("alarm_dependencies between", value1, value2, "alarmDependencies");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlarmDependenciesNotBetween(String value1, String value2) {
+            addCriterion("alarm_dependencies not between", value1, value2, "alarmDependencies");
             return (Criteria) this;
         }
 
@@ -641,6 +892,76 @@ public class AlarmConfigExample {
 
         public Criteria andAlarmDescNotBetween(String value1, String value2) {
             addCriterion("alarm_desc not between", value1, value2, "alarmDesc");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionIsNull() {
+            addCriterion("judgment_condition is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionIsNotNull() {
+            addCriterion("judgment_condition is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionEqualTo(String value) {
+            addCriterion("judgment_condition =", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionNotEqualTo(String value) {
+            addCriterion("judgment_condition <>", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionGreaterThan(String value) {
+            addCriterion("judgment_condition >", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionGreaterThanOrEqualTo(String value) {
+            addCriterion("judgment_condition >=", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionLessThan(String value) {
+            addCriterion("judgment_condition <", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionLessThanOrEqualTo(String value) {
+            addCriterion("judgment_condition <=", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionLike(String value) {
+            addCriterion("judgment_condition like", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionNotLike(String value) {
+            addCriterion("judgment_condition not like", value, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionIn(List<String> values) {
+            addCriterion("judgment_condition in", values, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionNotIn(List<String> values) {
+            addCriterion("judgment_condition not in", values, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionBetween(String value1, String value2) {
+            addCriterion("judgment_condition between", value1, value2, "judgmentCondition");
+            return (Criteria) this;
+        }
+
+        public Criteria andJudgmentConditionNotBetween(String value1, String value2) {
+            addCriterion("judgment_condition not between", value1, value2, "judgmentCondition");
             return (Criteria) this;
         }
     }

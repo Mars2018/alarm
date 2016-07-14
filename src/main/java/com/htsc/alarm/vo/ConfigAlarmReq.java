@@ -1,9 +1,13 @@
-package com.htsc.alarm.domain;
+package com.htsc.alarm.vo;
 
-import java.util.Date;
+import com.htsc.alarm.common.bean.AlarmDependency;
 
-public class AlarmConfig {
-    private Integer id;
+import java.util.List;
+
+/**
+ * Created by mars_wang on 2016/7/14.
+ */
+public class ConfigAlarmReq {
 
     private String alarmName;
 
@@ -19,9 +23,9 @@ public class AlarmConfig {
 
     private String availableDay;
 
-    private Date startDatetime;
+    private String startDatetime;
 
-    private Date endDatatime;
+    private String endDatatime;
 
     private String alarmDependencies;
 
@@ -29,20 +33,14 @@ public class AlarmConfig {
 
     private String judgmentCondition;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private List<AlarmDependency> dependencies;
 
     public String getAlarmName() {
         return alarmName;
     }
 
     public void setAlarmName(String alarmName) {
-        this.alarmName = alarmName == null ? null : alarmName.trim();
+        this.alarmName = alarmName;
     }
 
     public String getAlarmType() {
@@ -50,7 +48,7 @@ public class AlarmConfig {
     }
 
     public void setAlarmType(String alarmType) {
-        this.alarmType = alarmType == null ? null : alarmType.trim();
+        this.alarmType = alarmType;
     }
 
     public String getAlarmLevel() {
@@ -58,7 +56,7 @@ public class AlarmConfig {
     }
 
     public void setAlarmLevel(String alarmLevel) {
-        this.alarmLevel = alarmLevel == null ? null : alarmLevel.trim();
+        this.alarmLevel = alarmLevel;
     }
 
     public Integer getAlarmValue() {
@@ -74,7 +72,7 @@ public class AlarmConfig {
     }
 
     public void setStatisticalMethod(String statisticalMethod) {
-        this.statisticalMethod = statisticalMethod == null ? null : statisticalMethod.trim();
+        this.statisticalMethod = statisticalMethod;
     }
 
     public Integer getStifleTime() {
@@ -90,22 +88,22 @@ public class AlarmConfig {
     }
 
     public void setAvailableDay(String availableDay) {
-        this.availableDay = availableDay == null ? null : availableDay.trim();
+        this.availableDay = availableDay;
     }
 
-    public Date getStartDatetime() {
+    public String getStartDatetime() {
         return startDatetime;
     }
 
-    public void setStartDatetime(Date startDatetime) {
+    public void setStartDatetime(String startDatetime) {
         this.startDatetime = startDatetime;
     }
 
-    public Date getEndDatatime() {
+    public String getEndDatatime() {
         return endDatatime;
     }
 
-    public void setEndDatatime(Date endDatatime) {
+    public void setEndDatatime(String endDatatime) {
         this.endDatatime = endDatatime;
     }
 
@@ -114,7 +112,7 @@ public class AlarmConfig {
     }
 
     public void setAlarmDependencies(String alarmDependencies) {
-        this.alarmDependencies = alarmDependencies == null ? null : alarmDependencies.trim();
+        this.alarmDependencies = alarmDependencies;
     }
 
     public String getAlarmDesc() {
@@ -122,7 +120,7 @@ public class AlarmConfig {
     }
 
     public void setAlarmDesc(String alarmDesc) {
-        this.alarmDesc = alarmDesc == null ? null : alarmDesc.trim();
+        this.alarmDesc = alarmDesc;
     }
 
     public String getJudgmentCondition() {
@@ -130,6 +128,14 @@ public class AlarmConfig {
     }
 
     public void setJudgmentCondition(String judgmentCondition) {
-        this.judgmentCondition = judgmentCondition == null ? null : judgmentCondition.trim();
+        this.judgmentCondition = judgmentCondition;
+    }
+
+    public List<AlarmDependency> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<AlarmDependency> dependencies) {
+        this.dependencies = dependencies;
     }
 }
