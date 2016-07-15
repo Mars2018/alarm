@@ -29,6 +29,8 @@ public class AlarmConfig {
 
     private String alarmDesc;
 
+    private Date updateDatetime;
+
     public Integer getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class AlarmConfig {
 
     public void setAlarmDesc(String alarmDesc) {
         this.alarmDesc = alarmDesc == null ? null : alarmDesc.trim();
+    }
+
+    public Date getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(Date updateDatetime) {
+        this.updateDatetime = updateDatetime;
     }
 }

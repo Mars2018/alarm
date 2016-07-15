@@ -15,6 +15,7 @@
     <result column="end_datatime" property="endDatatime" jdbcType="TIMESTAMP" />
     <result column="alarm_dependencies" property="alarmDependencies" jdbcType="VARCHAR" />
     <result column="alarm_desc" property="alarmDesc" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -48,7 +49,7 @@
   <sql id="Base_Column_List" >
     id, alarm_type, alarm_name, statistical_method, judgment_condition, alarm_value, 
     stifle_time, alarm_level, available_day, start_datetime, end_datatime, alarm_dependencies, 
-    alarm_desc
+    alarm_desc, update_datetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.AlarmConfigExample" >
     select
@@ -80,12 +81,12 @@
       statistical_method, judgment_condition, alarm_value, 
       stifle_time, alarm_level, available_day, 
       start_datetime, end_datatime, alarm_dependencies, 
-      alarm_desc)
+      alarm_desc, update_datetime)
     values (#{id,jdbcType=INTEGER}, #{alarmType,jdbcType=VARCHAR}, #{alarmName,jdbcType=VARCHAR}, 
       #{statisticalMethod,jdbcType=VARCHAR}, #{judgmentCondition,jdbcType=VARCHAR}, #{alarmValue,jdbcType=VARCHAR}, 
       #{stifleTime,jdbcType=INTEGER}, #{alarmLevel,jdbcType=VARCHAR}, #{availableDay,jdbcType=VARCHAR}, 
       #{startDatetime,jdbcType=TIMESTAMP}, #{endDatatime,jdbcType=TIMESTAMP}, #{alarmDependencies,jdbcType=VARCHAR}, 
-      #{alarmDesc,jdbcType=VARCHAR})
+      #{alarmDesc,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.htsc.alarm.domain.AlarmConfig" >
     insert into alarm_config
@@ -129,6 +130,9 @@
       <if test="alarmDesc != null" >
         alarm_desc,
       </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -169,6 +173,9 @@
       </if>
       <if test="alarmDesc != null" >
         #{alarmDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -217,6 +224,9 @@
       <if test="alarmDesc != null" >
         alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
       </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -233,7 +243,8 @@
       start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
       end_datatime = #{endDatatime,jdbcType=TIMESTAMP},
       alarm_dependencies = #{alarmDependencies,jdbcType=VARCHAR},
-      alarm_desc = #{alarmDesc,jdbcType=VARCHAR}
+      alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
