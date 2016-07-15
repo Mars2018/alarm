@@ -3,18 +3,18 @@
 <mapper namespace="com.htsc.alarm.dao.AlarmConfigMapper" >
   <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.AlarmConfig" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="alarm_name" property="alarmName" jdbcType="VARCHAR" />
     <result column="alarm_type" property="alarmType" jdbcType="VARCHAR" />
-    <result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
-    <result column="alarm_value" property="alarmValue" jdbcType="INTEGER" />
+    <result column="alarm_name" property="alarmName" jdbcType="VARCHAR" />
     <result column="statistical_method" property="statisticalMethod" jdbcType="VARCHAR" />
+    <result column="judgment_condition" property="judgmentCondition" jdbcType="VARCHAR" />
+    <result column="alarm_value" property="alarmValue" jdbcType="VARCHAR" />
     <result column="stifle_time" property="stifleTime" jdbcType="INTEGER" />
+    <result column="alarm_level" property="alarmLevel" jdbcType="VARCHAR" />
     <result column="available_day" property="availableDay" jdbcType="VARCHAR" />
     <result column="start_datetime" property="startDatetime" jdbcType="TIMESTAMP" />
     <result column="end_datatime" property="endDatatime" jdbcType="TIMESTAMP" />
     <result column="alarm_dependencies" property="alarmDependencies" jdbcType="VARCHAR" />
     <result column="alarm_desc" property="alarmDesc" jdbcType="VARCHAR" />
-    <result column="judgment_condition" property="judgmentCondition" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -46,8 +46,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, alarm_name, alarm_type, alarm_level, alarm_value, statistical_method, stifle_time, 
-    available_day, start_datetime, end_datatime, alarm_dependencies, alarm_desc, judgment_condition
+    id, alarm_type, alarm_name, statistical_method, judgment_condition, alarm_value, 
+    stifle_time, alarm_level, available_day, start_datetime, end_datatime, alarm_dependencies, 
+    alarm_desc
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.AlarmConfigExample" >
     select
@@ -75,16 +76,16 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.htsc.alarm.domain.AlarmConfig" >
-    insert into alarm_config (id, alarm_name, alarm_type, 
-      alarm_level, alarm_value, statistical_method, 
-      stifle_time, available_day, start_datetime, 
-      end_datatime, alarm_dependencies, alarm_desc, 
-      judgment_condition)
-    values (#{id,jdbcType=INTEGER}, #{alarmName,jdbcType=VARCHAR}, #{alarmType,jdbcType=VARCHAR}, 
-      #{alarmLevel,jdbcType=VARCHAR}, #{alarmValue,jdbcType=INTEGER}, #{statisticalMethod,jdbcType=VARCHAR}, 
-      #{stifleTime,jdbcType=INTEGER}, #{availableDay,jdbcType=VARCHAR}, #{startDatetime,jdbcType=TIMESTAMP}, 
-      #{endDatatime,jdbcType=TIMESTAMP}, #{alarmDependencies,jdbcType=VARCHAR}, #{alarmDesc,jdbcType=VARCHAR}, 
-      #{judgmentCondition,jdbcType=VARCHAR})
+    insert into alarm_config (id, alarm_type, alarm_name, 
+      statistical_method, judgment_condition, alarm_value, 
+      stifle_time, alarm_level, available_day, 
+      start_datetime, end_datatime, alarm_dependencies, 
+      alarm_desc)
+    values (#{id,jdbcType=INTEGER}, #{alarmType,jdbcType=VARCHAR}, #{alarmName,jdbcType=VARCHAR}, 
+      #{statisticalMethod,jdbcType=VARCHAR}, #{judgmentCondition,jdbcType=VARCHAR}, #{alarmValue,jdbcType=VARCHAR}, 
+      #{stifleTime,jdbcType=INTEGER}, #{alarmLevel,jdbcType=VARCHAR}, #{availableDay,jdbcType=VARCHAR}, 
+      #{startDatetime,jdbcType=TIMESTAMP}, #{endDatatime,jdbcType=TIMESTAMP}, #{alarmDependencies,jdbcType=VARCHAR}, 
+      #{alarmDesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.htsc.alarm.domain.AlarmConfig" >
     insert into alarm_config
@@ -92,23 +93,26 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="alarmName != null" >
-        alarm_name,
-      </if>
       <if test="alarmType != null" >
         alarm_type,
       </if>
-      <if test="alarmLevel != null" >
-        alarm_level,
-      </if>
-      <if test="alarmValue != null" >
-        alarm_value,
+      <if test="alarmName != null" >
+        alarm_name,
       </if>
       <if test="statisticalMethod != null" >
         statistical_method,
       </if>
+      <if test="judgmentCondition != null" >
+        judgment_condition,
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value,
+      </if>
       <if test="stifleTime != null" >
         stifle_time,
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level,
       </if>
       <if test="availableDay != null" >
         available_day,
@@ -125,31 +129,31 @@
       <if test="alarmDesc != null" >
         alarm_desc,
       </if>
-      <if test="judgmentCondition != null" >
-        judgment_condition,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="alarmName != null" >
-        #{alarmName,jdbcType=VARCHAR},
-      </if>
       <if test="alarmType != null" >
         #{alarmType,jdbcType=VARCHAR},
       </if>
-      <if test="alarmLevel != null" >
-        #{alarmLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="alarmValue != null" >
-        #{alarmValue,jdbcType=INTEGER},
+      <if test="alarmName != null" >
+        #{alarmName,jdbcType=VARCHAR},
       </if>
       <if test="statisticalMethod != null" >
         #{statisticalMethod,jdbcType=VARCHAR},
       </if>
+      <if test="judgmentCondition != null" >
+        #{judgmentCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        #{alarmValue,jdbcType=VARCHAR},
+      </if>
       <if test="stifleTime != null" >
         #{stifleTime,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLevel != null" >
+        #{alarmLevel,jdbcType=VARCHAR},
       </if>
       <if test="availableDay != null" >
         #{availableDay,jdbcType=VARCHAR},
@@ -166,9 +170,6 @@
       <if test="alarmDesc != null" >
         #{alarmDesc,jdbcType=VARCHAR},
       </if>
-      <if test="judgmentCondition != null" >
-        #{judgmentCondition,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.htsc.alarm.domain.AlarmConfigExample" resultType="java.lang.Integer" >
@@ -180,23 +181,26 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.AlarmConfig" >
     update alarm_config
     <set >
-      <if test="alarmName != null" >
-        alarm_name = #{alarmName,jdbcType=VARCHAR},
-      </if>
       <if test="alarmType != null" >
         alarm_type = #{alarmType,jdbcType=VARCHAR},
       </if>
-      <if test="alarmLevel != null" >
-        alarm_level = #{alarmLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="alarmValue != null" >
-        alarm_value = #{alarmValue,jdbcType=INTEGER},
+      <if test="alarmName != null" >
+        alarm_name = #{alarmName,jdbcType=VARCHAR},
       </if>
       <if test="statisticalMethod != null" >
         statistical_method = #{statisticalMethod,jdbcType=VARCHAR},
       </if>
+      <if test="judgmentCondition != null" >
+        judgment_condition = #{judgmentCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValue != null" >
+        alarm_value = #{alarmValue,jdbcType=VARCHAR},
+      </if>
       <if test="stifleTime != null" >
         stifle_time = #{stifleTime,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLevel != null" >
+        alarm_level = #{alarmLevel,jdbcType=VARCHAR},
       </if>
       <if test="availableDay != null" >
         available_day = #{availableDay,jdbcType=VARCHAR},
@@ -213,26 +217,23 @@
       <if test="alarmDesc != null" >
         alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
       </if>
-      <if test="judgmentCondition != null" >
-        judgment_condition = #{judgmentCondition,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.AlarmConfig" >
     update alarm_config
-    set alarm_name = #{alarmName,jdbcType=VARCHAR},
-      alarm_type = #{alarmType,jdbcType=VARCHAR},
-      alarm_level = #{alarmLevel,jdbcType=VARCHAR},
-      alarm_value = #{alarmValue,jdbcType=INTEGER},
+    set alarm_type = #{alarmType,jdbcType=VARCHAR},
+      alarm_name = #{alarmName,jdbcType=VARCHAR},
       statistical_method = #{statisticalMethod,jdbcType=VARCHAR},
+      judgment_condition = #{judgmentCondition,jdbcType=VARCHAR},
+      alarm_value = #{alarmValue,jdbcType=VARCHAR},
       stifle_time = #{stifleTime,jdbcType=INTEGER},
+      alarm_level = #{alarmLevel,jdbcType=VARCHAR},
       available_day = #{availableDay,jdbcType=VARCHAR},
       start_datetime = #{startDatetime,jdbcType=TIMESTAMP},
       end_datatime = #{endDatatime,jdbcType=TIMESTAMP},
       alarm_dependencies = #{alarmDependencies,jdbcType=VARCHAR},
-      alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
-      judgment_condition = #{judgmentCondition,jdbcType=VARCHAR}
+      alarm_desc = #{alarmDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

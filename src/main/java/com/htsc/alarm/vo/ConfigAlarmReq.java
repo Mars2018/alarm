@@ -15,7 +15,7 @@ public class ConfigAlarmReq {
 
     private String alarmLevel;
 
-    private Integer alarmValue;
+    private List<Integer> alarmValue;
 
     private String statisticalMethod;
 
@@ -57,14 +57,6 @@ public class ConfigAlarmReq {
 
     public void setAlarmLevel(String alarmLevel) {
         this.alarmLevel = alarmLevel;
-    }
-
-    public Integer getAlarmValue() {
-        return alarmValue;
-    }
-
-    public void setAlarmValue(Integer alarmValue) {
-        this.alarmValue = alarmValue;
     }
 
     public String getStatisticalMethod() {
@@ -137,5 +129,13 @@ public class ConfigAlarmReq {
 
     public void setDependencies(List<AlarmDependency> dependencies) {
         this.dependencies = dependencies;
+    }
+
+    public List<Integer> getAlarmValue() {
+        return alarmValue;
+    }
+
+    public void setAlarmValue(List<Integer> alarmValue) {
+        this.alarmValue = alarmValue;
     }
 }

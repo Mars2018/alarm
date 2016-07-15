@@ -5,17 +5,19 @@ import java.util.Date;
 public class AlarmConfig {
     private Integer id;
 
-    private String alarmName;
-
     private String alarmType;
 
-    private String alarmLevel;
-
-    private Integer alarmValue;
+    private String alarmName;
 
     private String statisticalMethod;
 
+    private String judgmentCondition;
+
+    private String alarmValue;
+
     private Integer stifleTime;
+
+    private String alarmLevel;
 
     private String availableDay;
 
@@ -27,22 +29,12 @@ public class AlarmConfig {
 
     private String alarmDesc;
 
-    private String judgmentCondition;
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getAlarmName() {
-        return alarmName;
-    }
-
-    public void setAlarmName(String alarmName) {
-        this.alarmName = alarmName == null ? null : alarmName.trim();
     }
 
     public String getAlarmType() {
@@ -53,20 +45,12 @@ public class AlarmConfig {
         this.alarmType = alarmType == null ? null : alarmType.trim();
     }
 
-    public String getAlarmLevel() {
-        return alarmLevel;
+    public String getAlarmName() {
+        return alarmName;
     }
 
-    public void setAlarmLevel(String alarmLevel) {
-        this.alarmLevel = alarmLevel == null ? null : alarmLevel.trim();
-    }
-
-    public Integer getAlarmValue() {
-        return alarmValue;
-    }
-
-    public void setAlarmValue(Integer alarmValue) {
-        this.alarmValue = alarmValue;
+    public void setAlarmName(String alarmName) {
+        this.alarmName = alarmName == null ? null : alarmName.trim();
     }
 
     public String getStatisticalMethod() {
@@ -77,12 +61,36 @@ public class AlarmConfig {
         this.statisticalMethod = statisticalMethod == null ? null : statisticalMethod.trim();
     }
 
+    public String getJudgmentCondition() {
+        return judgmentCondition;
+    }
+
+    public void setJudgmentCondition(String judgmentCondition) {
+        this.judgmentCondition = judgmentCondition == null ? null : judgmentCondition.trim();
+    }
+
+    public String getAlarmValue() {
+        return alarmValue;
+    }
+
+    public void setAlarmValue(String alarmValue) {
+        this.alarmValue = alarmValue == null ? null : alarmValue.trim();
+    }
+
     public Integer getStifleTime() {
         return stifleTime;
     }
 
     public void setStifleTime(Integer stifleTime) {
         this.stifleTime = stifleTime;
+    }
+
+    public String getAlarmLevel() {
+        return alarmLevel;
+    }
+
+    public void setAlarmLevel(String alarmLevel) {
+        this.alarmLevel = alarmLevel == null ? null : alarmLevel.trim();
     }
 
     public String getAvailableDay() {
@@ -123,13 +131,5 @@ public class AlarmConfig {
 
     public void setAlarmDesc(String alarmDesc) {
         this.alarmDesc = alarmDesc == null ? null : alarmDesc.trim();
-    }
-
-    public String getJudgmentCondition() {
-        return judgmentCondition;
-    }
-
-    public void setJudgmentCondition(String judgmentCondition) {
-        this.judgmentCondition = judgmentCondition == null ? null : judgmentCondition.trim();
     }
 }
