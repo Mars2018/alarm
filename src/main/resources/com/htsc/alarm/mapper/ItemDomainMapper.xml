@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htsc.alarm.dao.ItemDomainMapper" >
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.ItemDomain" >
+    <id column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="monitor_type" property="monitorType" jdbcType="VARCHAR" />
+    <result column="monitor_target" property="monitorTarget" jdbcType="VARCHAR" />
+    <result column="host_id" property="hostId" jdbcType="INTEGER" />
+    <result column="update_interval" property="updateInterval" jdbcType="INTEGER" />
+    <result column="item_status" property="itemStatus" jdbcType="INTEGER" />
+    <result column="history_keep" property="historyKeep" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    item_id, item_name, monitor_type, monitor_target, host_id, update_interval, item_status, 
+    history_keep
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.ItemDomainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from items
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.htsc.alarm.domain.ItemDomainExample" >
+    delete from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.htsc.alarm.domain.ItemDomain" >
+    insert into items (item_id, item_name, monitor_type, 
+      monitor_target, host_id, update_interval, 
+      item_status, history_keep)
+    values (#{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, #{monitorType,jdbcType=VARCHAR}, 
+      #{monitorTarget,jdbcType=VARCHAR}, #{hostId,jdbcType=INTEGER}, #{updateInterval,jdbcType=INTEGER}, 
+      #{itemStatus,jdbcType=INTEGER}, #{historyKeep,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.ItemDomain" >
+    insert into items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="monitorType != null" >
+        monitor_type,
+      </if>
+      <if test="monitorTarget != null" >
+        monitor_target,
+      </if>
+      <if test="hostId != null" >
+        host_id,
+      </if>
+      <if test="updateInterval != null" >
+        update_interval,
+      </if>
+      <if test="itemStatus != null" >
+        item_status,
+      </if>
+      <if test="historyKeep != null" >
+        history_keep,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTarget != null" >
+        #{monitorTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="hostId != null" >
+        #{hostId,jdbcType=INTEGER},
+      </if>
+      <if test="updateInterval != null" >
+        #{updateInterval,jdbcType=INTEGER},
+      </if>
+      <if test="itemStatus != null" >
+        #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="historyKeep != null" >
+        #{historyKeep,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.htsc.alarm.domain.ItemDomainExample" resultType="java.lang.Integer" >
+    select count(*) from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update items
+    <set >
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemName != null" >
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorType != null" >
+        monitor_type = #{record.monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monitorTarget != null" >
+        monitor_target = #{record.monitorTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hostId != null" >
+        host_id = #{record.hostId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateInterval != null" >
+        update_interval = #{record.updateInterval,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemStatus != null" >
+        item_status = #{record.itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.historyKeep != null" >
+        history_keep = #{record.historyKeep,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update items
+    set item_id = #{record.itemId,jdbcType=INTEGER},
+      item_name = #{record.itemName,jdbcType=VARCHAR},
+      monitor_type = #{record.monitorType,jdbcType=VARCHAR},
+      monitor_target = #{record.monitorTarget,jdbcType=VARCHAR},
+      host_id = #{record.hostId,jdbcType=INTEGER},
+      update_interval = #{record.updateInterval,jdbcType=INTEGER},
+      item_status = #{record.itemStatus,jdbcType=INTEGER},
+      history_keep = #{record.historyKeep,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.ItemDomain" >
+    update items
+    <set >
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorType != null" >
+        monitor_type = #{monitorType,jdbcType=VARCHAR},
+      </if>
+      <if test="monitorTarget != null" >
+        monitor_target = #{monitorTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="hostId != null" >
+        host_id = #{hostId,jdbcType=INTEGER},
+      </if>
+      <if test="updateInterval != null" >
+        update_interval = #{updateInterval,jdbcType=INTEGER},
+      </if>
+      <if test="itemStatus != null" >
+        item_status = #{itemStatus,jdbcType=INTEGER},
+      </if>
+      <if test="historyKeep != null" >
+        history_keep = #{historyKeep,jdbcType=BIGINT},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.ItemDomain" >
+    update items
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      monitor_type = #{monitorType,jdbcType=VARCHAR},
+      monitor_target = #{monitorTarget,jdbcType=VARCHAR},
+      host_id = #{hostId,jdbcType=INTEGER},
+      update_interval = #{updateInterval,jdbcType=INTEGER},
+      item_status = #{itemStatus,jdbcType=INTEGER},
+      history_keep = #{historyKeep,jdbcType=BIGINT}
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htsc.alarm.dao.TriggerDomainMapper" >
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.TriggerDomain" >
+    <id column="trigger_id" property="triggerId" jdbcType="INTEGER" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="lastvalue" property="lastvalue" jdbcType="INTEGER" />
+    <result column="lastvalue_time" property="lastvalueTime" jdbcType="TIMESTAMP" />
+    <result column="statistical_method" property="statisticalMethod" jdbcType="VARCHAR" />
+    <result column="judgment_condition" property="judgmentCondition" jdbcType="VARCHAR" />
+    <result column="parameters" property="parameters" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    trigger_id, item_id, name, lastvalue, lastvalue_time, statistical_method, judgment_condition, 
+    parameters
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.TriggerDomainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from triggers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from triggers
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from triggers
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.htsc.alarm.domain.TriggerDomainExample" >
+    delete from triggers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.htsc.alarm.domain.TriggerDomain" >
+    insert into triggers (trigger_id, item_id, name, 
+      lastvalue, lastvalue_time, statistical_method, 
+      judgment_condition, parameters)
+    values (#{triggerId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{lastvalue,jdbcType=INTEGER}, #{lastvalueTime,jdbcType=TIMESTAMP}, #{statisticalMethod,jdbcType=VARCHAR}, 
+      #{judgmentCondition,jdbcType=VARCHAR}, #{parameters,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.TriggerDomain" >
+    insert into triggers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="triggerId != null" >
+        trigger_id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="lastvalue != null" >
+        lastvalue,
+      </if>
+      <if test="lastvalueTime != null" >
+        lastvalue_time,
+      </if>
+      <if test="statisticalMethod != null" >
+        statistical_method,
+      </if>
+      <if test="judgmentCondition != null" >
+        judgment_condition,
+      </if>
+      <if test="parameters != null" >
+        parameters,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="triggerId != null" >
+        #{triggerId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lastvalue != null" >
+        #{lastvalue,jdbcType=INTEGER},
+      </if>
+      <if test="lastvalueTime != null" >
+        #{lastvalueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statisticalMethod != null" >
+        #{statisticalMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentCondition != null" >
+        #{judgmentCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="parameters != null" >
+        #{parameters,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.htsc.alarm.domain.TriggerDomainExample" resultType="java.lang.Integer" >
+    select count(*) from triggers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update triggers
+    <set >
+      <if test="record.triggerId != null" >
+        trigger_id = #{record.triggerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastvalue != null" >
+        lastvalue = #{record.lastvalue,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastvalueTime != null" >
+        lastvalue_time = #{record.lastvalueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.statisticalMethod != null" >
+        statistical_method = #{record.statisticalMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.judgmentCondition != null" >
+        judgment_condition = #{record.judgmentCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parameters != null" >
+        parameters = #{record.parameters,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update triggers
+    set trigger_id = #{record.triggerId,jdbcType=INTEGER},
+      item_id = #{record.itemId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      lastvalue = #{record.lastvalue,jdbcType=INTEGER},
+      lastvalue_time = #{record.lastvalueTime,jdbcType=TIMESTAMP},
+      statistical_method = #{record.statisticalMethod,jdbcType=VARCHAR},
+      judgment_condition = #{record.judgmentCondition,jdbcType=VARCHAR},
+      parameters = #{record.parameters,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.TriggerDomain" >
+    update triggers
+    <set >
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="lastvalue != null" >
+        lastvalue = #{lastvalue,jdbcType=INTEGER},
+      </if>
+      <if test="lastvalueTime != null" >
+        lastvalue_time = #{lastvalueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statisticalMethod != null" >
+        statistical_method = #{statisticalMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentCondition != null" >
+        judgment_condition = #{judgmentCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="parameters != null" >
+        parameters = #{parameters,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.TriggerDomain" >
+    update triggers
+    set item_id = #{itemId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      lastvalue = #{lastvalue,jdbcType=INTEGER},
+      lastvalue_time = #{lastvalueTime,jdbcType=TIMESTAMP},
+      statistical_method = #{statisticalMethod,jdbcType=VARCHAR},
+      judgment_condition = #{judgmentCondition,jdbcType=VARCHAR},
+      parameters = #{parameters,jdbcType=VARCHAR}
+    where trigger_id = #{triggerId,jdbcType=INTEGER}
+  </update>
+</mapper>
