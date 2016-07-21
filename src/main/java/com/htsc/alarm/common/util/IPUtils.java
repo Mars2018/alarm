@@ -1,4 +1,4 @@
-package com.htsc.alarm.util;
+package com.htsc.alarm.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

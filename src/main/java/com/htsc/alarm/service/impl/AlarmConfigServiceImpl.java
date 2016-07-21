@@ -1,16 +1,20 @@
 package com.htsc.alarm.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import com.htsc.alarm.cfg.MonitorSvcConfig;
+import com.htsc.alarm.dao.ItemDomainMapper;
 import com.htsc.alarm.domain.AlarmConfig;
+import com.htsc.alarm.domain.ItemDomain;
+import com.htsc.alarm.enums.MonitorType;
 import com.htsc.alarm.service.AlarmConfigService;
+import com.htsc.alarm.vo.ConfigAlarmItemsReq;
 import com.htsc.alarm.vo.ConfigAlarmReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,18 +22,29 @@ import java.util.List;
  */
 @Service(value = "alarmConfigService")
 public class AlarmConfigServiceImpl implements AlarmConfigService {
+
     private static final Logger LOG = LoggerFactory.getLogger(AlarmConfigServiceImpl.class);
+
+    @Autowired
+    ItemDomainMapper itemDomainMapper;
+
     @Override
-    public Integer insert(String configString, HttpRequest request) {
-        List<ConfigAlarmReq> configAlarmReqList = JSON.parseArray(configString, ConfigAlarmReq.class);
-        if (null == configAlarmReqList || 0 == configAlarmReqList.size()){
-            LOG.error("解析configString出错！");
-            return 0;
-        }
-        List<AlarmConfig> alarmConfigs = getAlarmConfigRecords(configAlarmReqList, request);
-        Integer insertRecords = 0;
-        return insertRecords;
+    public Integer insertItems(ConfigAlarmItemsReq configAlarmItemsReq) {
+        ItemDomain itemDomain = this.initItemDomain(configAlarmItemsReq);
+        return itemDomainMapper.insertSelective(itemDomain);
     }
+
+    private ItemDomain initItemDomain(ConfigAlarmItemsReq configAlarmItemsReq) {
+        ItemDomain itemDomain = new ItemDomain();
+        itemDomain.setItemName(configAlarmItemsReq.getName());
+        itemDomain.setMonitorType(MonitorSvcConfig.MonitorTypes[configAlarmItemsReq.getMonitorTypeNo()]);
+        itemDomain.setMonitorTarget(MonitorSvcConfig.MonitorTargets[configAlarmItemsReq.getMonitorTypeNo()]);
+        itemDomain.setHostId(configAlarmItemsReq.getHostId());
+        itemDomain.setUpdateInterval(configAlarmItemsReq.getUpdateInterval());
+        itemDomain.setHistoryKeep(configAlarmItemsReq.getHistoryKeep());
+        return itemDomain;
+    }
+
 
     private List<AlarmConfig> getAlarmConfigRecords(List<ConfigAlarmReq> configAlarmReqList, HttpRequest request) {
         List<AlarmConfig> alarmConfigRecords = new ArrayList<>();
@@ -44,18 +59,6 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
 
     private AlarmConfig getAlarmConfigRecord(ConfigAlarmReq configAlarmReq) {
         AlarmConfig alarmConfig = new AlarmConfig();
-        alarmConfig.setAlarmType(configAlarmReq.getAlarmType());
-        alarmConfig.setAlarmName(configAlarmReq.getAlarmName());
-        alarmConfig.setStatisticalMethod(configAlarmReq.getStatisticalMethod());
-        alarmConfig.setJudgmentCondition(configAlarmReq.getJudgmentCondition());
-        alarmConfig.setAlarmValue(configAlarmReq.getAlarmValue());
-        alarmConfig.setAlarmLevel(configAlarmReq.getAlarmLevel());
-        alarmConfig.setStifleTime(configAlarmReq.getStifleTime());
-        alarmConfig.setStartDatetime(JSON.parseObject(configAlarmReq.getStartDatetime(), Date.class));
-        alarmConfig.setEndDatatime(JSON.parseObject(configAlarmReq.getEndDatatime(), Date.class));
-        alarmConfig.setAvailableDay(configAlarmReq.getAvailableDay());
-        alarmConfig.setAlarmDependencies(JSON.toJSONString(configAlarmReq.getDependencies()));
-        alarmConfig.setAlarmDesc(configAlarmReq.getAlarmDesc());
 
         return alarmConfig;
     }

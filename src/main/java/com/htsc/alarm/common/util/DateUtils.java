@@ -1,4 +1,4 @@
-package com.htsc.alarm.util;
+package com.htsc.alarm.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
