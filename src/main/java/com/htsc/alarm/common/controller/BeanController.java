@@ -151,7 +151,7 @@ public class BeanController {
             return null;
         }
 
-        protected void copyPayReqValues(Object concretPayReq, HttpServletRequest request){
+        protected void copyPayReqValues(HttpServletRequest request, Object concretPayReq ){
             Object payReq = request.getAttribute("configReq");
             if(payReq != null){
                 BeanUtils.copyProperties(payReq, concretPayReq);

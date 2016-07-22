@@ -2,8 +2,9 @@ package com.htsc.alarm.dao;
 
 import com.htsc.alarm.domain.ItemDomain;
 import com.htsc.alarm.domain.ItemDomainExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ItemDomainMapper {
     int countByExample(ItemDomainExample example);

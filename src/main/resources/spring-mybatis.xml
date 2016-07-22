@@ -67,7 +67,7 @@
 
     <!--Mapper接口所在的包名，同事指定数据源-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ehsy.config.dao"/>
+        <property name="basePackage" value="com.htsc.alarm.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 

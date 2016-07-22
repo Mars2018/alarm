@@ -9,7 +9,7 @@ public class ConfigAlarmHostsReq {
 
     private String ip;
 
-    private Long proxy_id;
+    private Integer proxy_id;
 
     private String port;
 
@@ -40,11 +40,11 @@ public class ConfigAlarmHostsReq {
         this.ip = ip;
     }
 
-    public Long getProxy_id() {
+    public Integer getProxy_id() {
         return proxy_id;
     }
 
-    public void setProxy_id(Long proxy_id) {
+    public void setProxy_id(Integer proxy_id) {
         this.proxy_id = proxy_id;
     }
 

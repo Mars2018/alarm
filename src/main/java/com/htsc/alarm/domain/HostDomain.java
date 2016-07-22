@@ -1,6 +1,6 @@
 package com.htsc.alarm.domain;
 
-public class HostDoamin {
+public class HostDomain {
     private Integer hostId;
 
     private String hostName;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.htsc.alarm.dao.HostDoaminMapper" >
-  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.HostDoamin" >
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.HostDomain" >
     <id column="host_id" property="hostId" jdbcType="INTEGER" />
     <result column="host_name" property="hostName" jdbcType="VARCHAR" />
     <result column="host_ip" property="hostIp" jdbcType="VARCHAR" />
@@ -102,7 +102,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.htsc.alarm.domain.HostDoamin" >
+  <insert id="insert" parameterType="com.htsc.alarm.domain.HostDomain" >
     insert into hosts (host_id, host_name, host_ip, 
       host_proxy_id, host_port, host_status, 
       enable)
@@ -110,7 +110,7 @@
       #{hostProxyId,jdbcType=INTEGER}, #{hostPort,jdbcType=VARCHAR}, #{hostStatus,jdbcType=INTEGER}, 
       #{enable,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.HostDoamin" >
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.HostDomain" >
     insert into hosts
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="hostId != null" >
@@ -207,7 +207,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.HostDoamin" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.HostDomain" >
     update hosts
     <set >
       <if test="hostName != null" >
@@ -231,7 +231,7 @@
     </set>
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.HostDoamin" >
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.HostDomain" >
     update hosts
     set host_name = #{hostName,jdbcType=VARCHAR},
       host_ip = #{hostIp,jdbcType=VARCHAR},
@@ -241,4 +241,12 @@
       enable = #{enable,jdbcType=INTEGER}
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
+
+  <select id="getPrimaryKeyByHost" parameterType="com.htsc.alarm.domain.HostDomain">
+    SELECT id FROM hosts
+    WHERE host_ip = #{hostIp,jdbcType=VARCHAR}
+    <if test="hostProxyId != null" >
+      AND host_proxy_id = #{hostProxyId,jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>
