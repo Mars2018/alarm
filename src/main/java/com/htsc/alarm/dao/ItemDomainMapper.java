@@ -28,4 +28,8 @@ public interface ItemDomainMapper {
     int updateByPrimaryKeySelective(ItemDomain record);
 
     int updateByPrimaryKey(ItemDomain record);
+
+    int deleteByItem(ItemDomain itemDomain);
+
+    int getPrimaryKeyByItem(ItemDomain record);
 }

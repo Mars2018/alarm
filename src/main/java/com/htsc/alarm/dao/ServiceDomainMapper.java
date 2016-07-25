@@ -2,8 +2,9 @@ package com.htsc.alarm.dao;
 
 import com.htsc.alarm.domain.ServiceDomain;
 import com.htsc.alarm.domain.ServiceDomainExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ServiceDomainMapper {
     int countByExample(ServiceDomainExample example);
@@ -27,4 +28,9 @@ public interface ServiceDomainMapper {
     int updateByPrimaryKeySelective(ServiceDomain record);
 
     int updateByPrimaryKey(ServiceDomain record);
+
+    int deleteByService(ServiceDomain service);
+
+    int getPrimeryKey(ServiceDomain serviceDomain);
+
 }

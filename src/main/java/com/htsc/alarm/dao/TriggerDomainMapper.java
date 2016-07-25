@@ -2,8 +2,9 @@ package com.htsc.alarm.dao;
 
 import com.htsc.alarm.domain.TriggerDomain;
 import com.htsc.alarm.domain.TriggerDomainExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TriggerDomainMapper {
     int countByExample(TriggerDomainExample example);
@@ -27,4 +28,6 @@ public interface TriggerDomainMapper {
     int updateByPrimaryKeySelective(TriggerDomain record);
 
     int updateByPrimaryKey(TriggerDomain record);
+
+    int getPrimaryKey(TriggerDomain trigger);
 }

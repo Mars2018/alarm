@@ -257,4 +257,17 @@
       history_keep = #{historyKeep,jdbcType=BIGINT}
     where item_id = #{itemId,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByItem" parameterType="com.htsc.alarm.domain.ItemDomain">
+    DELETE FROM items WHERE
+    item_name = #{itemName,jdbcType=VARCHAR} AND
+    monitor_type = #{monitorType,jdbcType=VARCHAR} AND
+    monitor_target = #{monitorTarget,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="getPrimaryKeyByItem" parameterType="com.htsc.alarm.domain.ItemDomain" resultType="java.lang.Integer">
+    SELECT item_id FROM items
+    WHERE item_name = #{itemName,jdbcType=VARCHAR} AND
+    monitor_type = #{monitorType,jdbcType=VARCHAR} AND
+    monitor_target = #{monitorTarget,jdbcType=VARCHAR}
+  </select>
 </mapper>

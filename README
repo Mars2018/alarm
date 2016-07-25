@@ -1,0 +1,162 @@
+localhost:8081/alarm/config/insertHosts?hosts=[
+    {
+        "name": "m6",
+        "ip": "127.0.0.6",
+        "proxy_id": "2",
+        "port": "6536",
+        "enable": "1"
+    },
+    {
+        "name": "m7",
+        "ip": "127.0.0.7",
+        "proxy_id": "3",
+        "port": "6534",
+        "enable": "1"
+    }
+]
+
+localhost:8081/alarm/config/deleteHost?hosts=[
+    {
+        "name": "m6",
+        "ip": "127.0.0.6",
+        "proxy_id": "2",
+        "port": "6536",
+        "enable": "1"
+    },
+    {
+        "name": "m7",
+        "ip": "127.0.0.7",
+        "proxy_id": "3",
+        "port": "6534",
+        "enable": "1"
+    }
+]
+
+localhost:8081/alarm/config/updateHost?hosts=[
+    {
+        "name": "m7",
+        "ip": "127.0.0.7",
+        "proxy_id": "3",
+        "port": "6534",
+        "enable": "1"
+    },
+    {
+        "name": "m6",
+        "ip": "127.0.0.6",
+        "proxy_id": "2",
+        "port": "6536",
+        "enable": "1"
+    }
+]
+
+localhost:8081/alarm/config/insertItems?items=[
+    {
+        "name": "MyItem3",
+        "monitorTypeNo": "2",
+        "monitorTargetNo": "2",
+        "hostId": "2",
+        "updateInterval": "3",
+        "status": "",
+        "historyKeep": "90"
+    },
+    {
+        "name": "MyItem4",
+        "monitorTypeNo": "2",
+        "monitorTargetNo": "1",
+        "hostId": "2",
+        "updateInterval": "3",
+        "status": "",
+        "historyKeep": "90"
+    }
+]
+
+localhost:8081/alarm/config/deleteItem?item=[
+    {
+        "name": "MyItem3",
+        "monitorTypeNo": "2",
+        "monitorTargetNo": "2",
+        "hostId": "2",
+        "updateInterval": "3",
+        "status": "",
+        "historyKeep": "90"
+    }
+]
+
+localhost:8081/alarm/config/updateItem?items=[
+    {
+        "name": "MyItem4",
+        "monitorTypeNo": "2",
+        "monitorTargetNo": "1",
+        "hostId": "2",
+        "updateInterval": "3",
+        "status": "",
+        "historyKeep": "90"
+    },
+    {
+        "name": "MyItem3",
+        "monitorTypeNo": "2",
+        "monitorTargetNo": "2",
+        "hostId": "2",
+        "updateInterval": "3",
+        "status": "",
+        "historyKeep": "90"
+    }
+]
+
+localhost:8081/alarm/config/insertService?service={
+	"hostId":"3",
+	"status":"1",
+	"triggerId":"4",
+	"serviceStart":"",
+	"serviceEnd":"",
+	"dependencies":[1,2],
+	"serviceActive":"wd6-7"
+}
+
+localhost:8081/alarm/config/deleteService?service={
+	"hostId":"3",
+	"status":"1",
+	"triggerId":"4",
+	"serviceStart":"",
+	"serviceEnd":"",
+	"dependencies":[1,2],
+	"serviceActive":"wd6-7"
+}
+
+localhost:8081/alarm/config/updateService?services=[
+    {
+        "hostId": "2",
+        "status": "1",
+        "triggerId": "2",
+        "serviceStart": "",
+        "serviceEnd": "",
+        "dependencies": [
+            1,
+            2
+        ],
+        "serviceActive": "wd6-7"
+    },
+    {
+        "hostId": "2",
+        "status": "1",
+        "triggerId": "2",
+        "serviceStart": "",
+        "serviceEnd": "",
+        "dependencies": [
+            1,
+            2,
+            3
+        ],
+        "serviceActive": "wd1-7"
+    }
+]
+
+localhost:8081/alarm/config/insertTriggers?triggers=[{
+	"itemId":"2",
+	"name":"test1",
+	"lastvalue":"90",
+	"lastvalueTime":"2016-07-25 14:49:00",
+	"statisticalMethod":"min",
+	"judgmentCondition":"between",
+	"parameters":[50,100]
+}]

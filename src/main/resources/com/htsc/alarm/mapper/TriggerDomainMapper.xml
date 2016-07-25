@@ -257,4 +257,10 @@
       parameters = #{parameters,jdbcType=VARCHAR}
     where trigger_id = #{triggerId,jdbcType=INTEGER}
   </update>
+  <select id="getPrimaryKey" parameterType="com.htsc.alarm.domain.TriggerDomain" resultType="java.lang.Integer">
+    SELECT trigger_id FROM triggers
+    WHERE
+      item_id = #{itemId,jdbcType=INTEGER} AND
+       name = #{name,jdbcType=VARCHAR}
+  </select>
 </mapper>

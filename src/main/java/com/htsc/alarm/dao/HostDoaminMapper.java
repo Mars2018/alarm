@@ -30,4 +30,6 @@ public interface HostDoaminMapper {
     int updateByPrimaryKey(HostDomain record);
 
     int getPrimaryKeyByHost(HostDomain record);
+
+    int deleteHostByIP(HostDomain record);
 }

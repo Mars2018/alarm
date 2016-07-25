@@ -242,11 +242,19 @@
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
 
-  <select id="getPrimaryKeyByHost" parameterType="com.htsc.alarm.domain.HostDomain">
+  <select id="getPrimaryKeyByHost" parameterType="com.htsc.alarm.domain.HostDomain" resultType="java.lang.Integer">
     SELECT id FROM hosts
     WHERE host_ip = #{hostIp,jdbcType=VARCHAR}
     <if test="hostProxyId != null" >
       AND host_proxy_id = #{hostProxyId,jdbcType=INTEGER}
     </if>
   </select>
+
+  <delete id="deleteHostByIP" parameterType="com.htsc.alarm.domain.HostDomain">
+    delete from hosts
+    where host_ip = #{hostIp,jdbcType=VARCHAR}
+    <if test="hostProxyId != null" >
+      AND host_proxy_id = #{hostProxyId,jdbcType=INTEGER}
+    </if>
+  </delete>
 </mapper>

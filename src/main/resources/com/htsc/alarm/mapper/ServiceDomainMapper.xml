@@ -257,4 +257,18 @@
       service_active = #{serviceActive,jdbcType=VARCHAR}
     where service_id = #{serviceId,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByService" parameterType="com.htsc.alarm.domain.ServiceDomain">
+    DELETE FROM services
+    WHERE
+    host_id = #{hostId,jdbcType=INTEGER} AND
+     trigger_id = #{triggerId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="getPrimeryKey" parameterType="com.htsc.alarm.domain.ServiceDomain" resultType="java.lang.Integer">
+    SELECT service_id FROM services
+    WHERE
+     host_id = #{hostId,jdbcType=INTEGER} AND
+     trigger_id = #{triggerId,jdbcType=INTEGER}
+  </select>
+
 </mapper>
