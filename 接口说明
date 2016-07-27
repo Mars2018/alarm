@@ -15,7 +15,7 @@ localhost:8081/alarm/config/insertHosts?hosts=[
     }
 ]
 
-localhost:8081/alarm/config/deleteHost?hosts=[
+localhost:8081/host/127
     {
         "name": "m6",
         "ip": "127.0.0.6",
@@ -160,3 +160,53 @@ localhost:8081/alarm/config/insertTriggers?triggers=[{
 	"judgmentCondition":"between",
 	"parameters":[50,100]
 }]
+
+localhost:8081/alarm/config/insertTriggers?triggers=[{
+	"itemId":"5",
+	"name":"test2",
+	"lastvalue":"50",
+	"lastvalueTime":"2016-07-26 09:29:00",
+	"statisticalMethod":"min",
+	"judgmentCondition":"lt",
+	"parameters":"30"
+},
+{
+	"itemId":"6",
+	"name":"test3",
+	"lastvalue":"90",
+	"lastvalueTime":"",
+	"statisticalMethod":"min",
+	"judgmentCondition":"between",
+	"parameters":[50,100]
+}
+]
+
+localhost:8081/alarm/config/deleteTrigger?trigger={
+	"itemId":"2",
+	"name":"test1",
+	"lastvalue":"50",
+	"lastvalueTime":"2016-07-26 09:29:00",
+	"statisticalMethod":"min",
+	"judgmentCondition":"lt",
+	"parameters":"30"
+}
+
+localhost:8081/alarm/config/updateTrigger?triggers=[{
+	"itemId":"5",
+	"name":"test2",
+	"lastvalue":"50",
+	"lastvalueTime":"2016-07-26 09:29:00",
+	"statisticalMethod":"min",
+	"judgmentCondition":"lt",
+	"parameters":"30"
+},
+{
+	"itemId":"8",
+	"name":"test4",
+	"lastvalue":"90",
+	"lastvalueTime":"",
+	"statisticalMethod":"min",
+	"judgmentCondition":"between",
+	"parameters":[50,100]
+}
+]
