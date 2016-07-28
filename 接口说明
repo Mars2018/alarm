@@ -1,4 +1,6 @@
-localhost:8081/alarm/config/insertHosts?hosts=[
+localhost:8081/alarm/config/host/insert
+请求：POST
+参数：hosts=[
     {
         "name": "m6",
         "ip": "127.0.0.6",
@@ -15,7 +17,9 @@ localhost:8081/alarm/config/insertHosts?hosts=[
     }
 ]
 
-localhost:8081/host/127
+localhost:8081/alarm/config/host/delete
+请求：DELETE
+参数：hosts=
     {
         "name": "m6",
         "ip": "127.0.0.6",
@@ -32,7 +36,9 @@ localhost:8081/host/127
     }
 ]
 
-localhost:8081/alarm/config/updateHost?hosts=[
+localhost:8081/alarm/config/host/update
+请求：PUT
+参数：hosts=[
     {
         "name": "m7",
         "ip": "127.0.0.7",
@@ -49,7 +55,9 @@ localhost:8081/alarm/config/updateHost?hosts=[
     }
 ]
 
-localhost:8081/alarm/config/insertItems?items=[
+localhost:8081/alarm/config/item/insert
+请求：POST
+参数：items=[
     {
         "name": "MyItem3",
         "monitorTypeNo": "2",
@@ -70,7 +78,9 @@ localhost:8081/alarm/config/insertItems?items=[
     }
 ]
 
-localhost:8081/alarm/config/deleteItem?item=[
+localhost:8081/alarm/config/item/delete
+请求：DELETE
+参数：item=[
     {
         "name": "MyItem3",
         "monitorTypeNo": "2",
@@ -82,7 +92,9 @@ localhost:8081/alarm/config/deleteItem?item=[
     }
 ]
 
-localhost:8081/alarm/config/updateItem?items=[
+localhost:8081/alarm/config/item/update
+请求：PUT
+参数：items=[
     {
         "name": "MyItem4",
         "monitorTypeNo": "2",
@@ -103,7 +115,9 @@ localhost:8081/alarm/config/updateItem?items=[
     }
 ]
 
-localhost:8081/alarm/config/insertService?service={
+localhost:8081/alarm/config/service/insert
+请求：POST
+参数：service={
 	"hostId":"3",
 	"status":"1",
 	"triggerId":"4",
@@ -113,7 +127,9 @@ localhost:8081/alarm/config/insertService?service={
 	"serviceActive":"wd6-7"
 }
 
-localhost:8081/alarm/config/deleteService?service={
+localhost:8081/alarm/config/service/delete
+请求：DELETE
+参数：service={
 	"hostId":"3",
 	"status":"1",
 	"triggerId":"4",
@@ -123,7 +139,9 @@ localhost:8081/alarm/config/deleteService?service={
 	"serviceActive":"wd6-7"
 }
 
-localhost:8081/alarm/config/updateService?services=[
+localhost:8081/alarm/config/service/update
+请求：PUT
+参数：services=[
     {
         "hostId": "2",
         "status": "1",
@@ -151,7 +169,9 @@ localhost:8081/alarm/config/updateService?services=[
     }
 ]
 
-localhost:8081/alarm/config/insertTriggers?triggers=[{
+localhost:8081/alarm/config/trigger/insert
+请求：POST
+参数：triggers=[{
 	"itemId":"2",
 	"name":"test1",
 	"lastvalue":"90",
@@ -161,7 +181,9 @@ localhost:8081/alarm/config/insertTriggers?triggers=[{
 	"parameters":[50,100]
 }]
 
-localhost:8081/alarm/config/insertTriggers?triggers=[{
+localhost:8081/alarm/config/trigger/insert
+请求：POST
+参数：triggers=[{
 	"itemId":"5",
 	"name":"test2",
 	"lastvalue":"50",
@@ -181,7 +203,9 @@ localhost:8081/alarm/config/insertTriggers?triggers=[{
 }
 ]
 
-localhost:8081/alarm/config/deleteTrigger?trigger={
+localhost:8081/alarm/config/trigger/delete
+请求：DELETE
+参数：trigger={
 	"itemId":"2",
 	"name":"test1",
 	"lastvalue":"50",
@@ -191,7 +215,9 @@ localhost:8081/alarm/config/deleteTrigger?trigger={
 	"parameters":"30"
 }
 
-localhost:8081/alarm/config/updateTrigger?triggers=[{
+localhost:8081/alarm/config/trigger/update
+请求： PUT
+参数：triggers=[{
 	"itemId":"5",
 	"name":"test2",
 	"lastvalue":"50",

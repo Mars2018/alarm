@@ -7,8 +7,8 @@ public interface MonitorSvcConfig {
     String[] MonitorTypes = {"SERVER", "DATABASE", "VPN"};
 
     String[][] MonitorTargets = {
-            {"CPU占用", "内存占用", "线程数"},
-            {"磁盘容量", "磁盘占用量", "全表扫描数"},
-            {"网络带宽", "最大连接数" ,"已使用连接数"}
+            {"CPU Occupation", "Memory Occupation", "Threads Number"},
+            {"Disk Size", "Disk Occupation", "Full Scan Times"},
+            {"Network Bandwidth", "Max Connections" ,"Connections Used"}
     };
 }

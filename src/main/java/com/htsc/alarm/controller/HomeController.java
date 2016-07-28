@@ -1,4 +1,4 @@
-package com.htsc.alarm.common.controller;
+package com.htsc.alarm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeController {
-    @RequestMapping(value = "/{page}")
 
+
+    @RequestMapping(value = "/{page}")
     public String welcome(@PathVariable("page") String page){
         if(null == page || "".equals(page))
             return "index";

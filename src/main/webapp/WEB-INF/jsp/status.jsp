@@ -1,8 +1,20 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <%@include file="common-header.jsp"%>
+
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+               type:"GET",
+                async: false,
+                url: "http://localhost:8081/alarm/display//status/1"
+            });
+        });
+    </script>>
 </head>
 <body>
     <%@include file="common-title.jsp"%>
@@ -41,18 +53,24 @@
                         <caption>Monitor Status</caption>
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Alarm Type</th>
-                            <th>Alarm Target</th>
-                            <th>Statistical Method</th>
-                            <th>Alarm Value</th>
-                            <th>Judgment Condition</th>
-                            <th>Stifle Time(s)</th>
-                            <th>Alarm Level</th>
-                            <th>Update Time</th>
+                            <th>序号</th>
+                            <th>监控IP</th>
+                            <th>监控类型</th>
+                            <th>监控指标</th>
+                            <th>监控状态</th>
                         </tr>
                         </thead>
                         <tbody>
+
+                        <c:forEach items="${sessionScope.Emplist}" var="s">
+                            <tr>
+                                <td>${s.eid }</td>
+                                <td>${s.ename}</td>
+                                <td>${s.department.dname }</td>
+                                <td><a href="delEmp?eid=${s.eid }">删除</a>&nbsp;&nbsp;&nbsp;<a href="updateEmp?eid=${s.eid }">修改</a></td>
+                            </tr>
+                        </c:forEach>
+
                         <tr class="active-result">
                             <td>1</td>
                             <td>Alarm Type</td>

@@ -44,7 +44,7 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
 
 
     @Override
-    public String insertHosts(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
+    public Result insertHosts(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
         List<HostDomain> hosts = this.initHostDomain(configAlarmHostsReqs);
         LOG.debug("初始化 hostDomain 结束");
         Integer records = 0;
@@ -56,12 +56,12 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setMark("1");
         result.setMessage("Insert " + records + " hosts successfully!");
         result.setTotalCount(records);
-        return JSON.toJSONString(result);
+        return result;
     }
 
 
     @Override
-    public String deleteHost(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
+    public Result deleteHost(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
         List<HostDomain> hosts = this.initHostDomain(configAlarmHostsReqs);
         LOG.debug("初始化 hostDomain 结束");
         Integer records = hostDomainMapper.deleteHostByIP(hosts.get(0));
@@ -70,18 +70,18 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setMark("1");
         result.setMessage("delete host successfully!");
         result.setTotalCount(records);
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public String updateHost(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
+    public Result updateHost(List<ConfigAlarmHostsReq> configAlarmHostsReqs) {
         List<HostDomain> hosts = this.initHostDomain(configAlarmHostsReqs);
         Result<Integer> result = new Result<>();
         if(hosts.size() != 2){
             result.setMark("-1");
             result.setMessage("参数错误！");
-            return JSON.toJSONString(result);
+            return result;
         }
         LOG.debug("初始化 hosts 结束");
         Integer hostId = hostDomainMapper.getPrimaryKeyByHost(hosts.get(0));
@@ -92,11 +92,11 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(records);
         result.setMark("1");
         result.setMessage("update hosts successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String insertItems(List<ConfigAlarmItemsReq> itemsReq){
+    public Result insertItems(List<ConfigAlarmItemsReq> itemsReq){
         List<ItemDomain> items = this.initItemDomain(itemsReq);
         LOG.debug("初始化 itemDomain 结束");
         Integer records = 0;
@@ -108,11 +108,11 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setMark("1");
         result.setMessage("Insert " + records + "items successfully!");
         result.setTotalCount(records);
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String deleteItem(List<ConfigAlarmItemsReq> itemsReqs) {
+    public Result deleteItem(List<ConfigAlarmItemsReq> itemsReqs) {
         List<ItemDomain> items = this.initItemDomain(itemsReqs);
         LOG.debug("初始化 items 结束！");
         Integer records = itemDomainMapper.deleteByItem(items.get(0));
@@ -121,18 +121,18 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setMark("1");
         result.setMessage("delete item successfully!");
         result.setTotalCount(records);
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public String updateItem(List<ConfigAlarmItemsReq> itemsReqs) {
+    public Result updateItem(List<ConfigAlarmItemsReq> itemsReqs) {
         List<ItemDomain> items = this.initItemDomain(itemsReqs);
         Result<Integer> result = new Result<>();
         if(items.size() != 2){
             result.setMark("-1");
             result.setMessage("参数错误！");
-            return JSON.toJSONString(result);
+            return result;
         }
         Integer itemId = itemDomainMapper.getPrimaryKeyByItem(items.get(0));
         items.get(1).setItemId(itemId);
@@ -140,33 +140,33 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(record);
         result.setMark("1");
         result.setMessage("update items successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String insertServices(ConfigAlarmServicesReq servicesReqs) {
+    public Result insertServices(ConfigAlarmServicesReq servicesReqs) {
         ServiceDomain service = this.initServiceDomain(servicesReqs);
         Integer records = serviceDomainMapper.insertSelective(service);
         Result<Integer> result = new Result<>();
         result.setData(records);
         result.setMark("1");
         result.setMessage("Insert services Successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String deleteService(ConfigAlarmServicesReq servicesReq) {
+    public Result deleteService(ConfigAlarmServicesReq servicesReq) {
         ServiceDomain service = this.initServiceDomain(servicesReq);
         Integer record = serviceDomainMapper.deleteByService(service);
         Result<Integer> result = new Result<>();
         result.setData(record);
         result.setMark("1");
         result.setMessage("Delete services Successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String updateService(List<ConfigAlarmServicesReq> servicesReqs) {
+    public Result updateService(List<ConfigAlarmServicesReq> servicesReqs) {
         List<ServiceDomain> services = new ArrayList<>();
         for(int i = 0; i < servicesReqs.size(); ++i){
             services.add(this.initServiceDomain(servicesReqs.get(i)));
@@ -178,12 +178,12 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(record);
         result.setMark("1");
         result.setMessage("Update service successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
 
     @Override
-    public String insertTriggers(List<ConfigAlarmTriggersReq> configAlarmTriggersReqs) {
+    public Result insertTriggers(List<ConfigAlarmTriggersReq> configAlarmTriggersReqs) {
         List<TriggerDomain> triggers = initTriggers(configAlarmTriggersReqs);
         Integer records = 0;
         for(int i = 0; i < triggers.size(); ++i){
@@ -193,11 +193,11 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(records);
         result.setMark("1");
         result.setMessage("Insert service successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
     @Override
-    public String deleteTrigger(ConfigAlarmTriggersReq configAlarmTriggersReq) {
+    public Result deleteTrigger(ConfigAlarmTriggersReq configAlarmTriggersReq) {
         TriggerDomain trigger = initTrigger(configAlarmTriggersReq);
         Integer triggerId = triggerDomainMapper.getPrimaryKey(trigger);
         LOG.debug("get trigger id: []", triggerId);
@@ -206,12 +206,12 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(record);
         result.setMark("1");
         result.setMessage("delete service successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
 
     @Override
-    public String updateTrigger(List<ConfigAlarmTriggersReq> configAlarmTriggersReqs) {
+    public Result updateTrigger(List<ConfigAlarmTriggersReq> configAlarmTriggersReqs) {
         List<TriggerDomain> triggers = initTriggers(configAlarmTriggersReqs);
         Integer triggerId = triggerDomainMapper.getPrimaryKey(triggers.get(0));
         LOG.debug("get trigger id: []", triggerId);
@@ -221,7 +221,7 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         result.setData(record);
         result.setMark("1");
         result.setMessage("Update service successfully!");
-        return JSON.toJSONString(result);
+        return result;
     }
 
 

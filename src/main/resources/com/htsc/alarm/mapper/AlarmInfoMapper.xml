@@ -211,4 +211,8 @@
       clear_record = #{clearRecord,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.htsc.alarm.common.util.Page" >
+    select * from alarm_info order by id asc limit (#{pageNo}-1)*#{records},#{records};
+  </select>
+
 </mapper>
