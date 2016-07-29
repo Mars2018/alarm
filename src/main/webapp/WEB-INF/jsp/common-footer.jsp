@@ -73,4 +73,9 @@
 <script src="bootstrap/js/retina.js"></script>
 
 <script src="bootstrap/js/custom.js"></script>
+
+<!-- plugin start: datetimepicker -->
+<script src = "bootstrap/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src = "bootstrap/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<!-- plugin end: datetimepicker -->
 <!-- end: JavaScript-->

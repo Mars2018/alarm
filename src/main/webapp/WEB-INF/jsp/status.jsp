@@ -1,20 +1,31 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <%@include file="common-header.jsp"%>
 
-    <script type="text/javascript">
-        $(function () {
-            $.ajax({
-               type:"GET",
-                async: false,
-                url: "http://localhost:8081/alarm/display//status/1"
-            });
-        });
-    </script>>
+    <script>
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                    + " " + date.getHours() + seperator2 + date.getMinutes()
+                    + seperator2 + date.getSeconds();
+            document.getElementById("timer").innerHTML = currentdate;
+            return currentdate;
+        }
+        setInterval("getNowFormatDate()", 1000);
+    </script>
+
 </head>
 <body>
     <%@include file="common-title.jsp"%>
@@ -50,75 +61,19 @@
 
                 <div class="span10">
                     <table class="table">
-                        <caption>Monitor Status</caption>
+                        <caption class="header">监控状态</caption>
+
                         <thead>
-                        <tr>
+                        <tr class="success">
                             <th>序号</th>
+                            <th>名称</th>
                             <th>监控IP</th>
                             <th>监控类型</th>
-                            <th>监控指标</th>
+                            <th>实时值</th>
                             <th>监控状态</th>
                         </tr>
                         </thead>
-                        <tbody>
-
-                        <c:forEach items="${sessionScope.Emplist}" var="s">
-                            <tr>
-                                <td>${s.eid }</td>
-                                <td>${s.ename}</td>
-                                <td>${s.department.dname }</td>
-                                <td><a href="delEmp?eid=${s.eid }">删除</a>&nbsp;&nbsp;&nbsp;<a href="updateEmp?eid=${s.eid }">修改</a></td>
-                            </tr>
-                        </c:forEach>
-
-                        <tr class="active-result">
-                            <td>1</td>
-                            <td>Alarm Type</td>
-                            <td>Alarm Target</td>
-                            <td>Statistical Method</td>
-                            <td>Alarm Value</td>
-                            <td>Judgment Condition</td>
-                            <td>Stifle Time(s)</td>
-                            <td>Alarm Level</td>
-                            <td>Update Time</td>
-                        </tr>
-                        <tr class="success">
-                            <td>2</td>
-                            <td>Alarm Type</td>
-                            <td>Alarm Target</td>
-                            <td>Statistical Method</td>
-                            <td>Alarm Value</td>
-                            <td>Judgment Condition</td>
-                            <td>Stifle Time(s)</td>
-                            <td>Alarm Level</td>
-                            <td>Update Time</td>
-                        </tr>
-                        <tr  class="warning">
-                            <td>3</td>
-                            <td>Alarm Type</td>
-                            <td>Alarm Target</td>
-                            <td>Statistical Method</td>
-                            <td>Alarm Value</td>
-                            <td>Judgment Condition</td>
-                            <td>Stifle Time(s)</td>
-                            <td>Alarm Level</td>
-                            <td>Update Time</td>
-                        </tr>
-                        <tr  class="danger">
-                            <td>4</td>
-                            <td>Alarm Type</td>
-                            <td>Alarm Target</td>
-                            <td>Statistical Method</td>
-                            <td>Alarm Value</td>
-                            <td>Judgment Condition</td>
-                            <td>Stifle Time(s)</td>
-                            <td>Alarm Level</td>
-                            <td>Update Time</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#"><span class="btn-link">Add</span></a></td>
-
-                        </tr>
+                        <tbody id="tbodycontent">
                         </tbody>
                     </table>
                 </div>
@@ -130,5 +85,47 @@
 </div><!--/fluid-row-->
 
     <%@include file="common-footer.jsp"%>
+
+    <script>
+        $(function(){
+            $.ajax({
+                type:"GET",
+                async: false,
+                url: "http://localhost:8081/alarm/display/status/1",
+                dataType : "json",
+                success:function(data){
+                    debugger;
+                    var datas = eval(data);
+                    $.each(datas,function (index, item) {
+                        debugger;
+                        var html = '';
+                        if(index % 2 == 0)
+                            html += '<tr class="text-info">';
+                        else
+                            html += '<tr class="text-success">';
+                        html += '<td>'+ index +'</td>';
+                        html += '<td>'+ item.alarmName+ '</td>';
+                        html += '<td>'+ item.ipSource +'</td>';
+                        html += '<td>'+ item.alarmType +'</td>';
+                        html += '<td>'+ item.alarmValue +'</td>';
+                        html += '<td>'+ item.alarmLevel +'</td>';
+                        html += '</tr>';
+                        $("#tbodycontent").append(html);
+                    });
+
+                },
+                error:function (e) {
+                    debugger;
+                    alert(e);
+                }
+
+            });
+        });
+    </script>
+
+
 </body>
+
+
+
 </html>

@@ -1,6 +1,5 @@
 package com.htsc.alarm.service.impl;
 
-import com.htsc.alarm.common.util.Page;
 import com.htsc.alarm.dao.AlarmInfoMapper;
 import com.htsc.alarm.domain.AlarmInfo;
 import com.htsc.alarm.service.DisplayService;
@@ -22,8 +21,13 @@ public class DispalyServiceImpl implements DisplayService {
     AlarmInfoMapper alarmInfoMapper;
 
     @Override
-    public List<AlarmInfo> QueryMonitorInfos(Page page) {
-        List<AlarmInfo> alarmInfos = alarmInfoMapper.selectByPage(page);
+    public List<AlarmInfo> QueryMonitorInfos(Integer pageNo, Integer pageRecord) {
+        List<AlarmInfo> alarmInfos = alarmInfoMapper.selectByPage(pageNo, pageRecord);
         return  alarmInfos;
+    }
+
+    @Override
+    public Integer countAlarmInfos() {
+        return alarmInfoMapper.countAlarmInfos();
     }
 }

@@ -1,6 +1,5 @@
 package com.htsc.alarm.service;
 
-import com.htsc.alarm.common.util.Page;
 import com.htsc.alarm.domain.AlarmInfo;
 
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.List;
  */
 public interface DisplayService {
 
-    List<AlarmInfo>  QueryMonitorInfos(Page page);
+    List<AlarmInfo>  QueryMonitorInfos(Integer page, Integer pageRecords);
 
+    Integer countAlarmInfos();
 }

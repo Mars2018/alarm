@@ -236,3 +236,10 @@ localhost:8081/alarm/config/trigger/update
 	"parameters":[50,100]
 }
 ]
+
+
+查询监控状态：
+localhost:8081/alarm/display/status/1
+
+查村记录数量：
+localhost:8081/alarm/display/status/count

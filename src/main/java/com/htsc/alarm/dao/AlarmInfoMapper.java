@@ -1,8 +1,9 @@
 package com.htsc.alarm.dao;
 
-import com.htsc.alarm.common.util.Page;
 import com.htsc.alarm.domain.AlarmInfo;
 import com.htsc.alarm.domain.AlarmInfoExample;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 public interface AlarmInfoMapper {
@@ -22,5 +23,7 @@ public interface AlarmInfoMapper {
 
     int updateByPrimaryKey(AlarmInfo record);
 
-    List<AlarmInfo> selectByPage(Page page);
+    List<AlarmInfo> selectByPage(@Param("pageNo") Integer pageNo, @Param("pageRecord") Integer pageRecord);
+
+    Integer countAlarmInfos();
 }

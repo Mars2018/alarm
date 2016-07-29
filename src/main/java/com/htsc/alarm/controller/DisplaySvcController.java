@@ -1,6 +1,6 @@
 package com.htsc.alarm.controller;
 
-import com.htsc.alarm.common.util.Page;
+import com.htsc.alarm.cfg.PageConfig;
 import com.htsc.alarm.domain.AlarmInfo;
 import com.htsc.alarm.service.DisplayService;
 import org.slf4j.Logger;
@@ -27,12 +27,18 @@ public class DisplaySvcController {
     @Autowired
     DisplayService displayService;
 
+    @RequestMapping(value = "/status/count", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer countAlarmInfos(){
+        return displayService.countAlarmInfos();
+    }
+
     @RequestMapping(value = "/status/{pageNo}", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
     @ResponseBody
     public List<AlarmInfo> queryAlarmInfosByPage(@PathVariable("pageNo") Integer pageNo){
-        Page page = new Page();
-        page.setPageNo(pageNo);
-        return displayService.QueryMonitorInfos(page);
+
+        return displayService.QueryMonitorInfos((pageNo-1)* PageConfig.PAGE_RECORDS, PageConfig.PAGE_RECORDS);
     }
+
 
 }
