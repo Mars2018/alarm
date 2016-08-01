@@ -94,10 +94,10 @@
                 url: "http://localhost:8081/alarm/display/status/1",
                 dataType : "json",
                 success:function(data){
-                    debugger;
+          //          debugger;
                     var datas = eval(data);
                     $.each(datas,function (index, item) {
-                        debugger;
+          //              debugger;
                         var html = '';
                         if(index % 2 == 0)
                             html += '<tr class="text-info">';

@@ -9,13 +9,37 @@
 <html>
 <head>
     <%@include file="common-header.jsp"%>
+    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
     <script>
-        /**
-         * 序列化form转json
-         *
-         * @param $selector
-         * @returns {___anonymous2268_2269}
-         */
+        $(function () {
+            var datas;
+            $.ajax({
+                type:"GET",
+                url: "http://localhost:8081/alarm/monitor/query/monitorType",
+                dataType : "json",
+                success:function(data){
+                    debugger;
+                    datas = eval(data);
+                    debugger;
+                },
+                error:function (e) {
+                    debugger;
+                    alert(e);
+                }
+
+            });
+            $("#monitorTarget").click(function () {
+
+                $.each(datas,function (index, item) {
+                    var html = '';
+                    if(item.type_id == $("#monitorType").val( )) {
+                        debugger;
+                        html += '<option value=' + item.id + '>' + item.name + '</option>';
+                        $("#monitorTarget").append(html);
+                    }
+                });
+            });
+        });
         function serializeFromToJson($selector) {
             var o = {};
             var a = $selector.serializeArray();
@@ -32,22 +56,20 @@
             return o;
         }
         function saveHost() {
-            var $fm = $("#hostForm");
-     //       var host = new host()
-            var hosts = getFormData($fm);
-            debugger;
+          //  debugger;
             $.ajax({
                 type:'POST',
-                url: 'localhost:8081/alarm/config/host/insert',
-                data:serializeFromToJson($("#hostForm")),
-                contentType: 'application/json',
                 async:false,
-                success:function () {
+                url: "http://localhost:8081/alarm/config/host/insert",
+                data:"["+JSON.stringify(serializeFromToJson($("#hostForm")))+"]",
+                dataType:'json',
+                contentType: "application/json;charset=UTF-8",
+                success:function (data) {
                     $("#hostForm").clear;
                     alert("插入成功！");
                 },
-                error:function () {
-                    alert("插入失败....");
+                error:function (data) {
+                    alert("插入失败...."+data);
                 }
             })
         }
@@ -55,6 +77,71 @@
         function cancleHost() {
             $("#hostForm").clean();
         }
+
+        function loadMonitorType(){
+            var mySelect = document.getElementById("monitorType");
+            debugger;
+            $.ajax({
+                type:"GET",
+                url: "http://localhost:8081/alarm/monitor/query/monitorType",
+                dataType : "json",
+                success:function(data){
+                    debugger;
+                    var datas = eval(data);
+                    $.each(datas,function (index, item) {
+                        debugger;
+                        var html = '';
+                        html += '<option value='+ item.id+'>'+item.name+'</option>';
+                        $("#monitorType").append(html);
+                    });
+
+                },
+                error:function (e) {
+                    debugger;
+                    alert(e);
+                }
+
+            });
+
+        }
+
+        function loadMonitorTarget() {
+            debugger;
+            $.ajax({
+                type:"GET",
+                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
+                dataType : "json",
+                success:function(data){
+                             debugger;
+                    var datas = eval(data);
+                    var type = $("#monitorType").val();
+                    $.each(datas,function (index, item) {
+                                     debugger;
+                        var html = '';
+                        if(item.typeId == type) {
+                            html += '<option value=' + item.id + '>' + item.name + '</option>';
+                            $("#monitorTarget").append(html);
+                        }
+                    });
+
+                },
+                error:function (e) {
+                    debugger;
+                    alert(e);
+                }
+
+            });
+
+        }
+        
+        function saveItem() {
+            
+        }
+        
+        function cancleItem() {
+            
+        }
+
     </script>
 </head>
 <body>
@@ -101,7 +188,7 @@
                         <!--Header end-->
                         <!--content start-->
                         <div class="box-content">
-                            <form class="form-horizontal" id="hostForm" >
+                            <form class="form-horizontal" id="hostForm" method="post" action="">
                                 <fieldset>
                                     <div class="control-group">
                                         <label class="control-label" for="hostName">Host Name</label>
@@ -141,7 +228,7 @@
 
                                     <div class="form-actions">
                                         <button type="submit" class="btn btn-primary" id="hostSubmit" onclick="saveHost()">Save Host</button>
-                                        <button class="btn", id="hostCancel", onclick="cancelHost">Cancel</button>
+                                        <button class="btn", id="hostCancel", onclick="cancleHost()">Cancel</button>
                                     </div>
                                 </fieldset>
                             </form>
@@ -152,6 +239,99 @@
 
                 </div><!--/row-->
         <!--配置host结束-->
+
+         <!--配置 Items-->
+            <div class="row-fluid sortable">
+                    <div class="box span12">
+                        <!--header start-->
+                        <div class="box-header" data-original-title>
+                            <h2><i class="halflings-icon edit"></i><span class="break"></span>Items Congifuration</h2>
+                            <div class="box-icon">
+                                <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+                                <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                                <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+                            </div>
+                        </div>
+                        <!--Header end-->
+                        <!--content start-->
+                        <div class="box-content">
+                            <form class="form-horizontal" id="itemForm" method="post" action="">
+                                <fieldset>
+                                    <div class="control-group">
+                                        <label class="control-label" for="itemName">Item Name</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="itemName" name="name" type="text">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="monitorType" >Monitor Type</label>
+                                        <div class="controls" onload="loadMonitorType()">
+                                            <select id="monitorType" name="monitorTypeNo" data-rel="chosen" <%--onclick="loadMonitorType()"--%>>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                 <!--
+                                    <div class="control-group">
+                                        <label class="control-label" for="monitorType">Monitor Type</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="monitorType" name="monitorTypeNo" type="text">
+                                        </div>
+                                    </div>
+                 -->
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="monitorTarget">Monitor Target</label>
+                                        <div class="controls">
+                                            <select id="monitorTarget" name="monitorTargetNo" data-rel="chosen" <%--onclick="loadMonitorTarget()"--%>>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                  <!--
+                                    <div class="control-group">
+                                        <label class="control-label" for="monitorTarget">Monitor Target</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="monitorTarget" name="monitorTargetNo" type="text">
+                                        </div>
+                                    </div>
+                    -->
+                                    <div class="control-group">
+                                        <label class="control-label" for="monitorHost">Monitor Host</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="monitorHost" name="hostId" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="updateInterval">Update Interval</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="updateInterval" name="updateInterval" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="historyKeep">History Keep</label>
+                                        <div class="controls">
+                                            <input class="input-xlarge focused" id="historyKeep" name="historyKeep" type="text">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary" id="itemSubmit" onclick="saveItem()">Save Host</button>
+                                        <button class="btn", id="itemCancel", onclick="cancleItem()">Cancel</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+
+                        </div>
+                        <!--content end-->
+                    </div><!--/span-->
+
+                </div><!--/row-->
+         <!--配置 Items结束-->
 
 
             </div>

@@ -15,15 +15,15 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.htsc.alarm.domain" targetProject="D:\Monitoring Dev\alarm\src\main\java">
+        <javaModelGenerator targetPackage="com.htsc.alarm.domain" targetProject="D:\MonitoringDev\alarm\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="com.htsc.alarm.mapper" targetProject="D:\Monitoring Dev\alarm\src\main\resources">
+        <sqlMapGenerator targetPackage="com.htsc.alarm.mapper" targetProject="D:\MonitoringDev\alarm\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置，这里配置即将生成dao类放在com.ehsy.config.dao这个包下 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.htsc.alarm.dao" targetProject="D:\Monitoring Dev\alarm\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.htsc.alarm.dao" targetProject="D:\MonitoringDev\alarm\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--要生成的表-->
@@ -34,6 +34,9 @@
         <table tableName="triggers" domainObjectName="TriggerDomain" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"/>
         <table tableName="services" domainObjectName="ServiceDomain" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"/>
        <table tableName="alarm_info" domainObjectName="AlarmInfo" enableCountByExample="true" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"/>
+
+        <table tableName="monitor_target" domainObjectName="MonitorTarget" enableCountByExample="true" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"/>
+        <table tableName="monitor_type" domainObjectName="MonitorType" enableCountByExample="true" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"/>
 -->
     </context>
 </generatorConfiguration>

@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +31,8 @@ public class AlarmConfigSvcController extends BeanController {
 
     @RequestMapping(value = "/host/insert", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public Result insertHosts(@RequestParam("hosts")String hosts, HttpServletRequest request){
+    public Result insertHosts(@RequestBody String hosts, HttpServletRequest request){
+   //    String hosts = request.getParameter("hosts");
         List<ConfigAlarmHostsReq> configAlarmHostsReqs = JSON.parseArray(hosts, ConfigAlarmHostsReq.class);
         LOG.debug("Get Hosts:[]", configAlarmHostsReqs);
         return alarmConfigService.insertHosts(configAlarmHostsReqs);
