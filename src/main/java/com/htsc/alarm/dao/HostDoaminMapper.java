@@ -32,4 +32,7 @@ public interface HostDoaminMapper {
     int getPrimaryKeyByHost(HostDomain record);
 
     int deleteHostByIP(HostDomain record);
+
+    List<HostDomain> queryAllHosts();
+
 }

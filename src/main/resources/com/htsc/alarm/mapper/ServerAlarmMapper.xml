@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.htsc.alarm.dao.ServerAlarmMapper" >
+    <select id="queryHost" resultType="com.htsc.alarm.domain.HostDomain" parameterType="java.lang.String">
+        select * from hosts WHERE host_ip = #{ip}
+    </select>
+
+    <select id="queryItem" resultType="com.htsc.alarm.domain.ItemDomain">
+        select * from items WHERE host_id = {#hostId} AND monitor_type = {#monitorType} AND monitor_target = {#monitorTarget}
+    </select>
+    <select id="queryTrigger" resultType="com.htsc.alarm.domain.TriggerDomain" parameterType="java.lang.Integer">
+        SELECT * FROM triggers WHERE item_id = {#itemId}
+    </select>
+
+    <select id="queryService"  resultType="com.htsc.alarm.domain.ServiceDomain" >
+        SELECT * FROM services WHERE host_id={#hostId} AND item_id={#itemId}
+    </select>
+</mapper>

@@ -11,15 +11,41 @@
     <%@include file="common-header.jsp"%>
     <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
     <script>
-        $(function () {
-            var datas;
+        var typeData;
+        var targetData;
+        $(document).ready(function () {
             $.ajax({
                 type:"GET",
                 url: "http://localhost:8081/alarm/monitor/query/monitorType",
                 dataType : "json",
                 success:function(data){
                     debugger;
-                    datas = eval(data);
+                    typeData = eval(data);
+                    debugger;
+                    $.each(typeData,function (index, item) {
+                        debugger;
+                        var html = '';
+                        html += '<option value='+ item.id+'>'+item.name+'</option>';
+                        $("#monitorType").append(html);
+                    });
+                },
+                error:function (e) {
+                    debugger;
+                    alert(e);
+                }
+
+            });
+            $("#monitorType").show();
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                type:"GET",
+                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
+                dataType : "json",
+                success:function(data){
+                    debugger;
+                    targetData = eval(data);
                     debugger;
                 },
                 error:function (e) {
@@ -28,18 +54,8 @@
                 }
 
             });
-            $("#monitorTarget").click(function () {
-
-                $.each(datas,function (index, item) {
-                    var html = '';
-                    if(item.type_id == $("#monitorType").val( )) {
-                        debugger;
-                        html += '<option value=' + item.id + '>' + item.name + '</option>';
-                        $("#monitorTarget").append(html);
-                    }
-                });
-            });
         });
+
         function serializeFromToJson($selector) {
             var o = {};
             var a = $selector.serializeArray();
@@ -56,7 +72,7 @@
             return o;
         }
         function saveHost() {
-          //  debugger;
+            //  debugger;
             $.ajax({
                 type:'POST',
                 async:false,
@@ -102,44 +118,29 @@
                 }
 
             });
+            $("#monitorType").show();
 
         }
 
-        function loadMonitorTarget() {
+        $("#monitorType").change(function () {
             debugger;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
-                dataType : "json",
-                success:function(data){
-                             debugger;
-                    var datas = eval(data);
-                    var type = $("#monitorType").val();
-                    $.each(datas,function (index, item) {
-                                     debugger;
-                        var html = '';
-                        if(item.typeId == type) {
-                            html += '<option value=' + item.id + '>' + item.name + '</option>';
-                            $("#monitorTarget").append(html);
-                        }
-                    });
-
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
+            var type = $("#monitorType").val();
+            $.each(targetData,function (index, item) {
+                debugger;
+                var html = '';
+                if(item.typeId == type) {
+                    html += '<option value=' + item.id + '>' + item.name + '</option>';
+                    $("#monitorTarget").append(html);
                 }
-
             });
+        });
+
+        function saveItem() {
 
         }
-        
-        function saveItem() {
-            
-        }
-        
+
         function cancleItem() {
-            
+
         }
 
     </script>
@@ -147,7 +148,7 @@
 <body>
 <%@include file="common-title.jsp"%>
 
-    <div class="container-fluid-full">
+<div class="container-fluid-full">
     <div class="row-fluid">
 
         <%@include file="common-mainmenu.jsp"%>
@@ -167,81 +168,11 @@
                     <a href="index">Home</a>
                     <i class="icon-angle-right"></i>
                 </li>
-                <li><a href="#">Configuration</a></li>
+                <li><a href="#">Items</a></li>
             </ul>
             <div id="cfg" class="scroll-pane">
-                <div id="hosts">
-            </div>
-
-         <!--配置host-->
-            <div class="row-fluid sortable">
-                    <div class="box span12">
-                        <!--header start-->
-                        <div class="box-header" data-original-title>
-                            <h2><i class="halflings-icon edit"></i><span class="break"></span>Host Congifuration</h2>
-                            <div class="box-icon">
-                                <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-                                <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                                <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-                            </div>
-                        </div>
-                        <!--Header end-->
-                        <!--content start-->
-                        <div class="box-content">
-                            <form class="form-horizontal" id="hostForm" method="post" action="">
-                                <fieldset>
-                                    <div class="control-group">
-                                        <label class="control-label" for="hostName">Host Name</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="hostName" name="name" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="hostIp">Host IP</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="hostIp" name="ip" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="hostPort">Host Port</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="hostPort" name="port" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="proxy">Proxy IP</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="proxy" name="proxy_id" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="hostEnable">Modern Select</label>
-                                        <div class="controls">
-                                            <select id="hostEnable" name="enable" data-rel="chosen">
-                                                <option value="1" selected="selected">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-primary" id="hostSubmit" onclick="saveHost()">Save Host</button>
-                                        <button class="btn", id="hostCancel", onclick="cancleHost()">Cancel</button>
-                                    </div>
-                                </fieldset>
-                            </form>
-
-                        </div>
-                        <!--content end-->
-                    </div><!--/span-->
-
-                </div><!--/row-->
-        <!--配置host结束-->
-
-         <!--配置 Items-->
-            <div class="row-fluid sortable">
+                <!--配置 Items-->
+                <div class="row-fluid sortable">
                     <div class="box span12">
                         <!--header start-->
                         <div class="box-header" data-original-title>
@@ -268,36 +199,20 @@
                                     <div class="control-group">
                                         <label class="control-label" for="monitorType" >Monitor Type</label>
                                         <div class="controls" onload="loadMonitorType()">
-                                            <select id="monitorType" name="monitorTypeNo" data-rel="chosen" <%--onclick="loadMonitorType()"--%>>
+                                            <select id="monitorType" name="monitorTypeNo" data-rel="chosen">
 
                                             </select>
                                         </div>
                                     </div>
-                 <!--
-                                    <div class="control-group">
-                                        <label class="control-label" for="monitorType">Monitor Type</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="monitorType" name="monitorTypeNo" type="text">
-                                        </div>
-                                    </div>
-                 -->
 
                                     <div class="control-group">
                                         <label class="control-label" for="monitorTarget">Monitor Target</label>
                                         <div class="controls">
-                                            <select id="monitorTarget" name="monitorTargetNo" data-rel="chosen" <%--onclick="loadMonitorTarget()"--%>>
+                                            <select id="monitorTarget" name="monitorTargetNo" data-rel="chosen">
 
                                             </select>
                                         </div>
                                     </div>
-                  <!--
-                                    <div class="control-group">
-                                        <label class="control-label" for="monitorTarget">Monitor Target</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="monitorTarget" name="monitorTargetNo" type="text">
-                                        </div>
-                                    </div>
-                    -->
                                     <div class="control-group">
                                         <label class="control-label" for="monitorHost">Monitor Host</label>
                                         <div class="controls">
@@ -331,15 +246,15 @@
                     </div><!--/span-->
 
                 </div><!--/row-->
-         <!--配置 Items结束-->
+                <!--配置 Items结束-->
 
 
             </div>
-        <!-- end: Content -->
-    </div><!--/#content.span10-->
-</div><!--/fluid-row-->
+            <!-- end: Content -->
+        </div><!--/#content.span10-->
+    </div><!--/fluid-row-->
+</div>
 
-
-<%@include file="common-footer.jsp"%>
+    <%@include file="common-footer.jsp"%>
 </body>
 </html>

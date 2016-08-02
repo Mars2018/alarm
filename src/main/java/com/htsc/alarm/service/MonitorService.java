@@ -1,5 +1,6 @@
 package com.htsc.alarm.service;
 
+import com.htsc.alarm.domain.HostDomain;
 import com.htsc.alarm.domain.MonitorTarget;
 import com.htsc.alarm.domain.MonitorType;
 
@@ -13,4 +14,6 @@ public interface MonitorService {
     List<MonitorType> selectAllMonitorType();
 
     List<MonitorTarget> selectAllMonitorTarget();
+
+    List<HostDomain> selectAllMonitorHost();
 }

@@ -1,7 +1,9 @@
 package com.htsc.alarm.service.impl;
 
+import com.htsc.alarm.dao.HostDoaminMapper;
 import com.htsc.alarm.dao.MonitorTargetMapper;
 import com.htsc.alarm.dao.MonitorTypeMapper;
+import com.htsc.alarm.domain.HostDomain;
 import com.htsc.alarm.domain.MonitorTarget;
 import com.htsc.alarm.domain.MonitorType;
 import com.htsc.alarm.service.MonitorService;
@@ -24,6 +26,10 @@ public class MonitorServiceImpl implements MonitorService {
 
     @Autowired
     private MonitorTargetMapper monitorTargetMapper;
+
+    @Autowired
+    private HostDoaminMapper hostDoaminMapper;
+
     @Override
     public List<MonitorType> selectAllMonitorType() {
 
@@ -33,5 +39,10 @@ public class MonitorServiceImpl implements MonitorService {
     @Override
     public List<MonitorTarget> selectAllMonitorTarget() {
         return monitorTargetMapper.selectAllRecords();
+    }
+
+    @Override
+    public List<HostDomain> selectAllMonitorHost() {
+        return hostDoaminMapper.queryAllHosts();
     }
 }

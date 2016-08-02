@@ -1,5 +1,6 @@
 package com.htsc.alarm.controller;
 
+import com.htsc.alarm.domain.HostDomain;
 import com.htsc.alarm.domain.MonitorTarget;
 import com.htsc.alarm.domain.MonitorType;
 import com.htsc.alarm.service.MonitorService;
@@ -36,5 +37,10 @@ public class MonitorConfigSvcController {
         return monitorService.selectAllMonitorTarget();
     }
 
+    @RequestMapping(value = "query/monitorHost", method = RequestMethod.GET)
+    @ResponseBody
+    public List<HostDomain> selectAllHosts(){
+        return monitorService.selectAllMonitorHost();
+    }
 
 }

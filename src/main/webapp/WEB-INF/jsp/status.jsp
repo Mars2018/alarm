@@ -49,7 +49,7 @@
                     <a href="index">Home</a>
                     <i class="icon-angle-right"></i>
                 </li>
-                <li><a href="#">Configuration</a></li>
+                <li><a href="#">Status</a></li>
             </ul>
             <div>
                 <h1>Status Panel</h1>

@@ -257,4 +257,8 @@
       AND host_proxy_id = #{hostProxyId,jdbcType=INTEGER}
     </if>
   </delete>
+
+  <select id="queryAllHosts" resultMap="BaseResultMap">
+    SELECT * from hosts;
+  </select>
 </mapper>
