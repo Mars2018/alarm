@@ -60,17 +60,18 @@
                 </div>
 
                 <div class="span10">
-                    <table class="table">
+                    <table id="alarmtable" class="table">
                         <caption class="header">监控状态</caption>
 
                         <thead>
                         <tr class="success">
-                            <th>序号</th>
+                            <th>编号</th>
                             <th>名称</th>
                             <th>监控IP</th>
                             <th>监控类型</th>
                             <th>实时值</th>
                             <th>监控状态</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody id="tbodycontent">
@@ -87,31 +88,65 @@
     <%@include file="common-footer.jsp"%>
 
     <script>
-        $(function(){
+        $(function () {
+            refresh();
+            setInterval(refresh,10000);
+        });
+        function refresh(){
+
             $.ajax({
                 type:"GET",
                 async: false,
                 url: "http://localhost:8081/alarm/display/status/1",
                 dataType : "json",
                 success:function(data){
-          //          debugger;
                     var datas = eval(data);
+                    var htmlInfo = '';
+                    var htmlError = '';
+                    var errorIndex = 0;
+                    var infoIndex = 0;
                     $.each(datas,function (index, item) {
-          //              debugger;
-                        var html = '';
-                        if(index % 2 == 0)
-                            html += '<tr class="text-info">';
-                        else
-                            html += '<tr class="text-success">';
-                        html += '<td>'+ index +'</td>';
-                        html += '<td>'+ item.alarmName+ '</td>';
-                        html += '<td>'+ item.ipSource +'</td>';
-                        html += '<td>'+ item.alarmType +'</td>';
-                        html += '<td>'+ item.alarmValue +'</td>';
-                        html += '<td>'+ item.alarmLevel +'</td>';
-                        html += '</tr>';
-                        $("#tbodycontent").append(html);
+
+                        if(item.alarmLevel == 'ERROR' && item.alarmClear != 1){
+                            htmlError += '<tr class="alert-error">';
+                            htmlError += '<td >'+ item.id+'</td>';
+                            htmlError += '<td>'+ item.alarmName+ '</td>';
+                            htmlError += '<td>'+ item.ipSource +'</td>';
+                            htmlError += '<td>'+ item.alarmType +'</td>';
+                            htmlError += '<td>'+ item.alarmValue +'</td>';
+                            htmlError += '<td>'+ item.alarmLevel +'</td>';
+                            htmlError += '<td><a href="" onclick="solve('+item.id+')"> Solve</a></td>';
+                            htmlError += '</tr>';
+                        }
+                        else if(item.alarmLevel == 'ERROR'){
+                            htmlInfo += '<tr class="text-warning">';
+                            htmlInfo += '<td>' + item.id + '</td>';
+                            htmlInfo += '<td>' + item.alarmName + '</td>';
+                            htmlInfo += '<td>' + item.ipSource + '</td>';
+                            htmlInfo += '<td>' + item.alarmType + '</td>';
+                            htmlInfo += '<td>' + item.alarmValue + '</td>';
+                            htmlInfo += '<td>' + item.alarmLevel + '</td>';
+                            htmlInfo += '<td>Solved</td>';
+                            htmlInfo += '</tr>';
+                        }else{
+                            htmlInfo += '<tr class="text-info">';
+                            htmlInfo += '<td>' + item.id + '</td>';
+                            htmlInfo += '<td>' + item.alarmName + '</td>';
+                            htmlInfo += '<td>' + item.ipSource + '</td>';
+                            htmlInfo += '<td>' + item.alarmType + '</td>';
+                            htmlInfo += '<td>' + item.alarmValue + '</td>';
+                            htmlInfo += '<td>' + item.alarmLevel + '</td>';
+                            htmlInfo += '<td></td>';
+                            htmlInfo += '</tr>';
+                        }
+          //              $("#tbodycontent").append(html);
                     });
+                    if(htmlError != '' || htmlInfo != ''){
+                        $("#tbodycontent").html("");
+                        debugger;
+                        $("#tbodycontent").append(htmlError);
+                        $("#tbodycontent").append(htmlInfo);
+                    }
 
                 },
                 error:function (e) {
@@ -120,7 +155,30 @@
                 }
 
             });
-        });
+        }
+
+        function solve(id) {
+            $.ajax({
+                type:"GET",
+                async: false,
+                url: 'http://localhost:8081/alarm/alarmInfo/solve/'+id,
+                dataType : "json",
+                success:function(data){
+                    debugger;
+                    if(data == 'success')
+                        alert("处理成功，等待刷新");
+                    else
+                        alert("处理失败");
+
+                },
+                error:function () {
+                    alert("请求失败！");
+                }
+
+            });
+
+        }
+
     </script>
 
 
