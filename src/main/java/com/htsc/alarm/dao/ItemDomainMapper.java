@@ -2,6 +2,7 @@ package com.htsc.alarm.dao;
 
 import com.htsc.alarm.domain.ItemDomain;
 import com.htsc.alarm.domain.ItemDomainExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface ItemDomainMapper {
     int deleteByItem(ItemDomain itemDomain);
 
     int getPrimaryKeyByItem(ItemDomain record);
+
+    ItemDomain queryItemByHost(@Param("id") Integer hostId, @Param("target") String monitorTarget);
 }

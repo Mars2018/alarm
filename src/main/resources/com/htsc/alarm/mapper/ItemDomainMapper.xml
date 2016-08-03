@@ -270,4 +270,8 @@
     monitor_type = #{monitorType,jdbcType=VARCHAR} AND
     monitor_target = #{monitorTarget,jdbcType=VARCHAR}
   </select>
+
+  <select id="queryItemByHost" resultMap="BaseResultMap">
+    select * from items WHERE host_id = #{id} AND monitor_target = #{target}
+  </select>
 </mapper>

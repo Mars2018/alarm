@@ -11,4 +11,6 @@ import java.util.List;
 public interface ServerAlarmService {
 
     List<AlarmInfo> severAlarmJudge(String alarmInfo, HttpServletRequest request);
+
+    Integer solveAlarm(Integer alarmInfoId);
 }

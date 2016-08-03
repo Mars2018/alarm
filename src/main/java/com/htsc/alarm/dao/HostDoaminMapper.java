@@ -35,4 +35,6 @@ public interface HostDoaminMapper {
 
     List<HostDomain> queryAllHosts();
 
+    HostDomain queryByIp(String ip);
+
 }

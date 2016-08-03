@@ -243,3 +243,6 @@ localhost:8081/alarm/display/status/1
 
 查村记录数量：
 localhost:8081/alarm/display/status/count
+
+localhost:8081/alarm/alarmInfo/server?alarmInfo=[{"target":"CPU Occupation","value":"85"}]
+localhost:8081/alarm/alarmInfo/server?alarmInfo=[{"target":"Disk Occupation","value":"85"}]

@@ -261,4 +261,10 @@
   <select id="queryAllHosts" resultMap="BaseResultMap">
     SELECT * from hosts;
   </select>
+
+  <select id="queryByIp" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM hosts WHERE host_ip = #{ip,jdbcType=VARCHAR}
+  </select>
 </mapper>

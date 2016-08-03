@@ -1,35 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.htsc.alarm.dao.ServiceDomainMapper" >
-  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.ServiceDomain" >
-    <id column="service_id" property="serviceId" jdbcType="INTEGER" />
-    <result column="host_id" property="hostId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="trigger_id" property="triggerId" jdbcType="INTEGER" />
-    <result column="service_start" property="serviceStart" jdbcType="TIMESTAMP" />
-    <result column="service_end" property="serviceEnd" jdbcType="TIMESTAMP" />
-    <result column="dependencies" property="dependencies" jdbcType="VARCHAR" />
-    <result column="service_active" property="serviceActive" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.htsc.alarm.dao.ServiceDomainMapper">
+  <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.ServiceDomain">
+    <id column="service_id" jdbcType="INTEGER" property="serviceId" />
+    <result column="host_id" jdbcType="INTEGER" property="hostId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="trigger_id" jdbcType="INTEGER" property="triggerId" />
+    <result column="service_start" jdbcType="TIMESTAMP" property="serviceStart" />
+    <result column="service_end" jdbcType="TIMESTAMP" property="serviceEnd" />
+    <result column="dependencies" jdbcType="VARCHAR" property="dependencies" />
+    <result column="service_active" jdbcType="VARCHAR" property="serviceActive" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -40,25 +41,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -69,143 +70,154 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     service_id, host_id, status, trigger_id, service_start, service_end, dependencies, 
-    service_active
+    service_active, item_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.htsc.alarm.domain.ServiceDomainExample" >
+  <select id="selectByExample" parameterType="com.htsc.alarm.domain.ServiceDomainExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from services
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from services
     where service_id = #{serviceId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from services
     where service_id = #{serviceId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.htsc.alarm.domain.ServiceDomainExample" >
+  <delete id="deleteByExample" parameterType="com.htsc.alarm.domain.ServiceDomainExample">
     delete from services
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.htsc.alarm.domain.ServiceDomain" >
+  <insert id="insert" parameterType="com.htsc.alarm.domain.ServiceDomain">
     insert into services (service_id, host_id, status, 
       trigger_id, service_start, service_end, 
-      dependencies, service_active)
+      dependencies, service_active, item_id
+      )
     values (#{serviceId,jdbcType=INTEGER}, #{hostId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{triggerId,jdbcType=INTEGER}, #{serviceStart,jdbcType=TIMESTAMP}, #{serviceEnd,jdbcType=TIMESTAMP}, 
-      #{dependencies,jdbcType=VARCHAR}, #{serviceActive,jdbcType=VARCHAR})
+      #{dependencies,jdbcType=VARCHAR}, #{serviceActive,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.ServiceDomain" >
+  <insert id="insertSelective" parameterType="com.htsc.alarm.domain.ServiceDomain">
     insert into services
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="serviceId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
         service_id,
       </if>
-      <if test="hostId != null" >
+      <if test="hostId != null">
         host_id,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="triggerId != null" >
+      <if test="triggerId != null">
         trigger_id,
       </if>
-      <if test="serviceStart != null" >
+      <if test="serviceStart != null">
         service_start,
       </if>
-      <if test="serviceEnd != null" >
+      <if test="serviceEnd != null">
         service_end,
       </if>
-      <if test="dependencies != null" >
+      <if test="dependencies != null">
         dependencies,
       </if>
-      <if test="serviceActive != null" >
+      <if test="serviceActive != null">
         service_active,
       </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="serviceId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
         #{serviceId,jdbcType=INTEGER},
       </if>
-      <if test="hostId != null" >
+      <if test="hostId != null">
         #{hostId,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="triggerId != null" >
+      <if test="triggerId != null">
         #{triggerId,jdbcType=INTEGER},
       </if>
-      <if test="serviceStart != null" >
+      <if test="serviceStart != null">
         #{serviceStart,jdbcType=TIMESTAMP},
       </if>
-      <if test="serviceEnd != null" >
+      <if test="serviceEnd != null">
         #{serviceEnd,jdbcType=TIMESTAMP},
       </if>
-      <if test="dependencies != null" >
+      <if test="dependencies != null">
         #{dependencies,jdbcType=VARCHAR},
       </if>
-      <if test="serviceActive != null" >
+      <if test="serviceActive != null">
         #{serviceActive,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.htsc.alarm.domain.ServiceDomainExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.htsc.alarm.domain.ServiceDomainExample" resultType="java.lang.Integer">
     select count(*) from services
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update services
-    <set >
-      <if test="record.serviceId != null" >
+    <set>
+      <if test="record.serviceId != null">
         service_id = #{record.serviceId,jdbcType=INTEGER},
       </if>
-      <if test="record.hostId != null" >
+      <if test="record.hostId != null">
         host_id = #{record.hostId,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null" >
+      <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.triggerId != null" >
+      <if test="record.triggerId != null">
         trigger_id = #{record.triggerId,jdbcType=INTEGER},
       </if>
-      <if test="record.serviceStart != null" >
+      <if test="record.serviceStart != null">
         service_start = #{record.serviceStart,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.serviceEnd != null" >
+      <if test="record.serviceEnd != null">
         service_end = #{record.serviceEnd,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.dependencies != null" >
+      <if test="record.dependencies != null">
         dependencies = #{record.dependencies,jdbcType=VARCHAR},
       </if>
-      <if test="record.serviceActive != null" >
+      <if test="record.serviceActive != null">
         service_active = #{record.serviceActive,jdbcType=VARCHAR},
       </if>
+      <if test="record.itemId != null">
+        item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update services
     set service_id = #{record.serviceId,jdbcType=INTEGER},
       host_id = #{record.hostId,jdbcType=INTEGER},
@@ -214,39 +226,43 @@
       service_start = #{record.serviceStart,jdbcType=TIMESTAMP},
       service_end = #{record.serviceEnd,jdbcType=TIMESTAMP},
       dependencies = #{record.dependencies,jdbcType=VARCHAR},
-      service_active = #{record.serviceActive,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+      service_active = #{record.serviceActive,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=INTEGER}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.ServiceDomain" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.htsc.alarm.domain.ServiceDomain">
     update services
-    <set >
-      <if test="hostId != null" >
+    <set>
+      <if test="hostId != null">
         host_id = #{hostId,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="triggerId != null" >
+      <if test="triggerId != null">
         trigger_id = #{triggerId,jdbcType=INTEGER},
       </if>
-      <if test="serviceStart != null" >
+      <if test="serviceStart != null">
         service_start = #{serviceStart,jdbcType=TIMESTAMP},
       </if>
-      <if test="serviceEnd != null" >
+      <if test="serviceEnd != null">
         service_end = #{serviceEnd,jdbcType=TIMESTAMP},
       </if>
-      <if test="dependencies != null" >
+      <if test="dependencies != null">
         dependencies = #{dependencies,jdbcType=VARCHAR},
       </if>
-      <if test="serviceActive != null" >
+      <if test="serviceActive != null">
         service_active = #{serviceActive,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
       </if>
     </set>
     where service_id = #{serviceId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.ServiceDomain" >
+  <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.ServiceDomain">
     update services
     set host_id = #{hostId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
@@ -254,14 +270,16 @@
       service_start = #{serviceStart,jdbcType=TIMESTAMP},
       service_end = #{serviceEnd,jdbcType=TIMESTAMP},
       dependencies = #{dependencies,jdbcType=VARCHAR},
-      service_active = #{serviceActive,jdbcType=VARCHAR}
+      service_active = #{serviceActive,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER}
     where service_id = #{serviceId,jdbcType=INTEGER}
   </update>
+
   <delete id="deleteByService" parameterType="com.htsc.alarm.domain.ServiceDomain">
     DELETE FROM services
     WHERE
     host_id = #{hostId,jdbcType=INTEGER} AND
-     trigger_id = #{triggerId,jdbcType=INTEGER}
+    trigger_id = #{triggerId,jdbcType=INTEGER}
   </delete>
 
   <select id="getPrimeryKey" parameterType="com.htsc.alarm.domain.ServiceDomain" resultType="java.lang.Integer">
@@ -269,6 +287,11 @@
     WHERE
      host_id = #{hostId,jdbcType=INTEGER} AND
      trigger_id = #{triggerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryServiceByHostItem" resultMap="BaseResultMap">
+    SELECT * FROM services WHERE
+    host_id = #{host} AND item_id = #{item}
   </select>
 
 </mapper>

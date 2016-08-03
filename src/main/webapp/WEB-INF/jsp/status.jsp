@@ -84,6 +84,41 @@
         <!-- end: Content -->
     </div><!--/#content.span10-->
 </div><!--/fluid-row-->
+        <%--<div id="myModal" class="modal hide fade in" style="display: none; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3>处理意见</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="solveText" class="form-control" cols="60"></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="textSubmit">Submit</button>
+                    <button class="btn btn-default" id="textCancel" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+        --%>
+    <input id="hidenAlarmId" type="hidden" name="alarmId"/>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">处理信息</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea id="solveText" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="textCancel" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="textSubmit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <%@include file="common-footer.jsp"%>
 
@@ -115,7 +150,7 @@
                             htmlError += '<td>'+ item.alarmType +'</td>';
                             htmlError += '<td>'+ item.alarmValue +'</td>';
                             htmlError += '<td>'+ item.alarmLevel +'</td>';
-                            htmlError += '<td><a href="" onclick="solve('+item.id+')"> Solve</a></td>';
+                            htmlError += '<td><a href="" data-toggle="modal" onclick="solveAlarm('+item.id+')" > Solve</a></td>';
                             htmlError += '</tr>';
                         }
                         else if(item.alarmLevel == 'ERROR'){
@@ -179,7 +214,45 @@
 
         }
 
+        function solveAlarm(id) {
+            $("#hidenAlarmId").val(id);
+            $("#solveText").val('');
+            $("#myModal").modal('show');
+        }
+
+        $("#textSubmit").click(function () {
+            var text = $("#solveText").val();
+            var id = $("#hidenAlarmId").val();
+            $("#myModal").modal('hide');
+            $.ajax({
+                type:"GET",
+                async: false,
+                url: 'http://localhost:8081/alarm/alarmInfo/solve/'+id+'?desc='+text,
+                dataType : "json",
+                success:function(){
+                    alert("处理成功，等待刷新");
+                },
+                error:function () {
+                    alert("请求失败！");
+                }
+
+            });
+
+        });
+
+        $("#textCancel").click(function () {
+            $("#myModal").modal('hide');
+        });
+
     </script>
+    <%--<script>
+        $(function () { $('#myModal').modal('hide')});
+    </script>--%>
+   <%-- <script>
+        $(function () { $('#myModal').on('hide.bs.modal', function () {
+            alert('处理关闭');})
+        });
+    </script>--%>
 
 
 </body>

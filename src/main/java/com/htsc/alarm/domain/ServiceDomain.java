@@ -19,6 +19,8 @@ public class ServiceDomain {
 
     private String serviceActive;
 
+    private Integer itemId;
+
     public Integer getServiceId() {
         return serviceId;
     }
@@ -81,5 +83,13 @@ public class ServiceDomain {
 
     public void setServiceActive(String serviceActive) {
         this.serviceActive = serviceActive == null ? null : serviceActive.trim();
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

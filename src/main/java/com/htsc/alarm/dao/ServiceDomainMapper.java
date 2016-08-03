@@ -33,4 +33,6 @@ public interface ServiceDomainMapper {
 
     int getPrimeryKey(ServiceDomain serviceDomain);
 
+    ServiceDomain queryServiceByHostItem(@Param("host") Integer hostId, @Param("item") Integer itemId);
+
 }

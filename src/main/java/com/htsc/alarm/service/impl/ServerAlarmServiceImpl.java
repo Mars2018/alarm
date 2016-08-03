@@ -3,8 +3,7 @@ package com.htsc.alarm.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.htsc.alarm.common.util.IPUtils;
-import com.htsc.alarm.dao.ServerAlarmMapper;
-import com.htsc.alarm.dao.TriggerDomainMapper;
+import com.htsc.alarm.dao.*;
 import com.htsc.alarm.domain.*;
 import com.htsc.alarm.service.ServerAlarmService;
 import com.htsc.alarm.vo.ServerAlarmInfo;
@@ -27,10 +26,19 @@ public class ServerAlarmServiceImpl implements ServerAlarmService {
     private static final Logger LOG = LoggerFactory.getLogger(ServerAlarmServiceImpl.class);
 
     @Autowired
-    ServerAlarmMapper serverAlarmMapper;
+    TriggerDomainMapper triggerDomainMapper;
 
     @Autowired
-    TriggerDomainMapper triggerDomainMapper;
+    HostDoaminMapper hostDoaminMapper;
+
+    @Autowired
+    ItemDomainMapper itemDomainMapper;
+
+    @Autowired
+    ServiceDomainMapper serviceDomainMapper;
+
+    @Autowired
+    AlarmInfoMapper alarmInfoMapper;
 
     @Override
     public List<AlarmInfo> severAlarmJudge(String alarmInfo, HttpServletRequest request) {
@@ -42,20 +50,34 @@ public class ServerAlarmServiceImpl implements ServerAlarmService {
         }
         if(ip.equals(""))
             return null;
-        HostDomain hostDomain = serverAlarmMapper.queryHost(ip);
+        HostDomain hostDomain = hostDoaminMapper.queryByIp(ip);
         if(hostDomain == null)
             return null;
         List<ServerAlarmInfo> serverAlarmInfos = JSON.parseArray(alarmInfo, ServerAlarmInfo.class);
         List<ServiceDomain> services = new ArrayList<>();
         List<AlarmInfo> alarmInfos = new ArrayList<>();
         for(int i = 0; i < serverAlarmInfos.size(); ++i){
-            ItemDomain itemDomain = serverAlarmMapper.queryItem(hostDomain.getHostId(),serverAlarmInfos.get(i).TYPE, serverAlarmInfos.get(i).getTarget());
+            Integer hostId = hostDomain.getHostId();
+            String target = serverAlarmInfos.get(i).getTarget();
+            ItemDomain itemDomain = itemDomainMapper.queryItemByHost(hostId, target);
             if(itemDomain == null)
                 continue;
-            ServiceDomain service = serverAlarmMapper.queryService(hostDomain.getHostId(),itemDomain.getItemId());
+            ServiceDomain service = serviceDomainMapper.queryServiceByHostItem(hostDomain.getHostId(),itemDomain.getItemId());
             if(service == null)
                 continue;
             TriggerDomain trigger = triggerDomainMapper.selectByPrimaryKey(service.getTriggerId());
+            if(trigger == null)
+                continue;
+            //新建AlarmInfo对象
+            AlarmInfo alarm = new AlarmInfo();
+            alarm.setIpSource(hostDomain.getHostIp());
+            alarm.setAlarmName(itemDomain.getItemName());
+            alarm.setAlarmType(itemDomain.getMonitorType()+":"+itemDomain.getMonitorTarget());
+            alarm.setAlarmLevel("INFO");
+            alarm.setAlarmValue(serverAlarmInfos.get(i).getValue().toString());
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            alarm.setStartDatetime(new Date());
+
             String judgmentCondition = trigger.getJudgmentCondition();
             Boolean result = false;
             if(judgmentCondition.equals("gt")){
@@ -74,17 +96,19 @@ public class ServerAlarmServiceImpl implements ServerAlarmService {
                     result = true;
             }
              if(result == true){
-                 AlarmInfo alarm = new AlarmInfo();
-                 alarm.setIpSource(hostDomain.getHostIp());
-                 alarm.setAlarmName(itemDomain.getItemName());
-                 alarm.setAlarmType(itemDomain.getMonitorType()+":"+itemDomain.getMonitorTarget());
-                 alarm.setAlarmLevel("C");
-                 alarm.setAlarmValue(serverAlarmInfos.get(i).getValue().toString());
-                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                 alarm.setStartDatetime(new Date());
+                 alarm.setAlarmLevel("ERROR");
                  alarmInfos.add(alarm);
              }
+            //存表
+            alarmInfoMapper.insertSelective(alarm);
         }
         return alarmInfos;
+    }
+
+    @Override
+    public Integer solveAlarm(Integer alarmInfoId) {
+        Integer result  = alarmInfoMapper.updateAlarmClear(alarmInfoId);
+        return result;
+
     }
 }

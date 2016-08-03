@@ -26,4 +26,6 @@ public interface AlarmInfoMapper {
     List<AlarmInfo> selectByPage(@Param("pageNo") Integer pageNo, @Param("pageRecord") Integer pageRecord);
 
     Integer countAlarmInfos();
+
+    Integer updateAlarmClear(Integer alarmId);
 }
