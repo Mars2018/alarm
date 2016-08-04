@@ -9,140 +9,7 @@
 <html>
 <head>
     <%@include file="common-header.jsp"%>
-    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
-    <script>
-        $(function () {
-            var datas;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    datas = eval(data);
-                    debugger;
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
 
-            });
-            $("#monitorTarget").click(function () {
-
-                $.each(datas,function (index, item) {
-                    var html = '';
-                    if(item.type_id == $("#monitorType").val( )) {
-                        debugger;
-                        html += '<option value=' + item.id + '>' + item.name + '</option>';
-                        $("#monitorTarget").append(html);
-                    }
-                });
-            });
-        });
-        function serializeFromToJson($selector) {
-            var o = {};
-            var a = $selector.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        }
-        function saveService() {
-            //  debugger;
-            $.ajax({
-                type:'POST',
-                async:false,
-                url: "http://localhost:8081/alarm/config/service/insert",
-                data:"["+JSON.stringify(serializeFromToJson($("#hostForm")))+"]",
-                dataType:'json',
-                contentType: "application/json;charset=UTF-8",
-                success:function (data) {
-                    $("#hostForm").clear;
-                    alert("插入成功！");
-                },
-                error:function (data) {
-                    alert("插入失败...."+data);
-                }
-            })
-        }
-
-        function cancleService() {
-            $("#hostForm").clean();
-        }
-
-        function loadMonitorType(){
-            var mySelect = document.getElementById("monitorType");
-            debugger;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    var datas = eval(data);
-                    $.each(datas,function (index, item) {
-                        debugger;
-                        var html = '';
-                        html += '<option value='+ item.id+'>'+item.name+'</option>';
-                        $("#monitorType").append(html);
-                    });
-
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-
-        }
-
-        function loadMonitorTarget() {
-            debugger;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    var datas = eval(data);
-                    var type = $("#monitorType").val();
-                    $.each(datas,function (index, item) {
-                        debugger;
-                        var html = '';
-                        if(item.typeId == type) {
-                            html += '<option value=' + item.id + '>' + item.name + '</option>';
-                            $("#monitorTarget").append(html);
-                        }
-                    });
-
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-
-        }
-
-        function saveItem() {
-
-        }
-
-        function cancleItem() {
-
-        }
-
-    </script>
 </head>
 <body>
 <%@include file="common-title.jsp"%>
@@ -185,41 +52,62 @@
                         <!--Header end-->
                         <!--content start-->
                         <div class="box-content">
-                            <form class="form-horizontal" id="hostForm" method="post" action="">
+                            <form class="form-horizontal" id="serviceForm" method="post" action="">
                                 <fieldset>
 
                                     <div class="control-group">
                                         <label class="control-label" for="host">Host</label>
                                         <div class="controls">
-                                            <select id="host" name="hostId" data-rel="chosen">
+                                            <select id="host" name="hostId" >
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="item">Item</label>
+                                        <div class="controls">
+                                           <select id="item" name="itemId" >
+                                           </select>
                                         </div>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label" for="trigger">Trigger</label>
                                         <div class="controls">
-                                            <select id="trigger" name="triggerId" data-rel="chosen">
+                                            <select id="trigger" name="triggerId">
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="control-group">
-                                        <label class="control-label" for="serviceStart">Start</label>
+                                        <label class="control-label" for="status">Enable</label>
+                                        <div class="controls">
+                                            <select id="status" name="status" data-rel="chosen">
+                                                <option value="1" selected='selected'>是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="serviceStart">Start(yyyy-MM-dd HH:mm:ss)</label>
                                         <div class="controls">
                                             <input class="input-xlarge focused" id="serviceStart" name="serviceStart" type="text">
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label class="control-label" for="serviceEnd">End</label>
+                                        <label class="control-label" for="serviceEnd">End(yyyy-MM-dd HH:mm:ss)</label>
                                         <div class="controls">
-                                            <input class="input-xlarge focused" id="serviceEnd" name="ip" type="text">
+                                            <input class="input-xlarge focused" id="serviceEnd" name="serviceEnd" type="text">
                                         </div>
                                     </div>
-
                                     <div class="control-group">
-                                        <label class="control-label" for="dependience">Dependencies</label>
+                                        <label class="control-label" for="serviceActive">Other(e.g wd:1-7)</label>
                                         <div class="controls">
-                                            <select id="dependience" name="dependience" data-rel="chosen">
+                                            <input class="input-xlarge focused" id="serviceActive" name="serviceActive" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="dependencies">Dependencies</label>
+                                        <div class="controls">
+                                            <select id="dependencies" name="dependence">
+                                            <option value=''>无</option>
                                             </select>
                                         </div>
                                     </div>
@@ -245,5 +133,145 @@
 
 
 <%@include file="common-footer.jsp"%>
+<script>
+        var hostData;
+        var itemData;
+        var triggerData;
+        var serviceData;
+        $(document).ready(function () {
+           $.ajax({
+               type:"GET",
+               url: "http://localhost:8081/alarm/monitor/query/monitorHost",
+               dataType : "json",
+               success:function(data){
+                  debugger;
+                  hostData = eval(data);
+                  debugger;
+                  $.each(hostData,function (index, item) {
+                      debugger;
+                       var html = '';
+                       html += '<option value=' + item.hostId + '>' + item.hostName + '</option>';
+                       $("#host").append(html);
+
+                   });
+               },
+               error:function (e) {
+                  debugger;
+                  alert(e);
+               }
+
+           });
+        });
+        $(document).ready(function () {
+           $.ajax({
+               type:"GET",
+               url: "http://localhost:8081/alarm/monitor/query/monitorItem",
+               dataType : "json",
+               success:function(data){
+                  debugger;
+                  itemData = eval(data);
+                  debugger;
+                  $.each(itemData,function (index, item) {
+                      debugger;
+                       var html = '';
+                       html += '<option value=' + item.itemId + '>' + item.itemName + '</option>';
+                       $("#item").append(html);
+
+                   });
+               },
+               error:function (e) {
+                  debugger;
+                  alert(e);
+               }
+
+           });
+        });
+        $(document).ready(function () {
+           $.ajax({
+               type:"GET",
+               url: "http://localhost:8081/alarm/monitor/query/monitorTrigger",
+               dataType : "json",
+               success:function(data){
+                  debugger;
+                  triggerData = eval(data);
+                  debugger;
+                  $.each(triggerData,function (index, item) {
+                      debugger;
+                       var html = '';
+                       html += '<option value=' + item.triggerId + '>' + item.name + '</option>';
+                       $("#trigger").append(html);
+
+                   });
+               },
+               error:function (e) {
+                  debugger;
+                  alert(e);
+               }
+
+           });
+        });
+        $(document).ready(function () {
+           $.ajax({
+               type:"GET",
+               url: "http://localhost:8081/alarm/monitor/query/monitorService",
+               dataType : "json",
+               success:function(data){
+                  debugger;
+                  serviceData = eval(data);
+                  debugger;
+                  $.each(serviceData,function (index, item) {
+                      debugger;
+                       var html = '';
+                       html += '<option value=' + item.serviceId + '>' + item.serviceId + '</option>';
+                       $("#dependencies").append(html);
+
+                   });
+               },
+               error:function (e) {
+                  debugger;
+                  alert(e);
+               }
+
+           });
+        });
+        function serializeFromToJson($selector) {
+            var o = {};
+            var a = $selector.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        }
+        function saveService() {
+            //  debugger;
+            $.ajax({
+                type:'POST',
+                async:false,
+                url: "http://localhost:8081/alarm/config/service/insert",
+                data:JSON.stringify(serializeFromToJson($("#serviceForm"))),
+                dataType:'json',
+                contentType: "application/json;charset=UTF-8",
+                success:function (data) {
+                    $("#serviceForm").clear;
+                    alert("插入成功！");
+                },
+                error:function (data) {
+                    alert("插入失败...."+data);
+                }
+            })
+        }
+
+        function cancleService() {
+            $("#sericeForm").clean();
+        }
+    </script>
+
 </body>
 </html>

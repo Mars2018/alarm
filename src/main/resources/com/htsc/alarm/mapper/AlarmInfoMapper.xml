@@ -218,8 +218,8 @@
     SELECT COUNT(*) FROM alarm_info;
   </select>
 
-  <update id="updateAlarmClear" parameterType="java.lang.Integer">
-    UPDATE alarm_info SET alarm_clear = 1 WHERE id = #{alarmId jdbcType=INTEGER}
+  <update id="updateAlarmClear">
+    UPDATE alarm_info SET alarm_clear = 1, clear_record = #{record} WHERE id = #{alarmId}
   </update>
 
 </mapper>

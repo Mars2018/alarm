@@ -263,4 +263,8 @@
       item_id = #{itemId,jdbcType=INTEGER} AND
        name = #{name,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectAllRecords" resultMap="BaseResultMap">
+    select * from triggers;
+  </select>
 </mapper>

@@ -294,4 +294,8 @@
     host_id = #{host} AND item_id = #{item}
   </select>
 
+  <select id="selectAllRecords" resultMap="BaseResultMap">
+    select * from services;
+  </select>
+
 </mapper>

@@ -5,7 +5,7 @@ public class MonitorType {
 
     private String name;
 
-    private String desc;
+    private String typeDesc;
 
     public Integer getId() {
         return id;
@@ -23,11 +23,11 @@ public class MonitorType {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getTypeDesc() {
+        return typeDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setTypeDesc(String typeDesc) {
+        this.typeDesc = typeDesc == null ? null : typeDesc.trim();
     }
 }

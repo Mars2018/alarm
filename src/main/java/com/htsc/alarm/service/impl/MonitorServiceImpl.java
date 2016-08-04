@@ -1,11 +1,7 @@
 package com.htsc.alarm.service.impl;
 
-import com.htsc.alarm.dao.HostDoaminMapper;
-import com.htsc.alarm.dao.MonitorTargetMapper;
-import com.htsc.alarm.dao.MonitorTypeMapper;
-import com.htsc.alarm.domain.HostDomain;
-import com.htsc.alarm.domain.MonitorTarget;
-import com.htsc.alarm.domain.MonitorType;
+import com.htsc.alarm.dao.*;
+import com.htsc.alarm.domain.*;
 import com.htsc.alarm.service.MonitorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +26,15 @@ public class MonitorServiceImpl implements MonitorService {
     @Autowired
     private HostDoaminMapper hostDoaminMapper;
 
+    @Autowired
+    private ItemDomainMapper itemDomainMapper;
+
+    @Autowired
+    private TriggerDomainMapper triggerDomainMapper;
+
+    @Autowired
+    private ServiceDomainMapper serviceDomainMapper;
+
     @Override
     public List<MonitorType> selectAllMonitorType() {
 
@@ -43,6 +48,22 @@ public class MonitorServiceImpl implements MonitorService {
 
     @Override
     public List<HostDomain> selectAllMonitorHost() {
-        return hostDoaminMapper.queryAllHosts();
+        List<HostDomain> hostDomains = hostDoaminMapper.queryAllHosts();
+        return hostDomains;
+    }
+
+    @Override
+    public List<ItemDomain> selectAllItem() {
+        return itemDomainMapper.selectAllRecords();
+    }
+
+    @Override
+    public List<TriggerDomain> selectAllTrigger() {
+        return triggerDomainMapper.selectAllRecords();
+    }
+
+    @Override
+    public List<ServiceDomain> selectAllService() {
+        return serviceDomainMapper.selectAllRecords();
     }
 }

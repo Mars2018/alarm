@@ -30,4 +30,6 @@ public interface ItemDomainMapper {
     int getPrimaryKeyByItem(ItemDomain record);
 
     ItemDomain queryItemByHost(@Param("id") Integer hostId, @Param("target") String monitorTarget);
+
+    List<ItemDomain> selectAllRecords();
 }

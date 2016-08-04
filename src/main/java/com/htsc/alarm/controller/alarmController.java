@@ -36,7 +36,7 @@ public class alarmController {
     @ResponseBody
     public String solveAlarm(@PathVariable("id") Integer alarmInfoId, HttpServletRequest request){
         String desc = request.getParameter("desc");
-        Integer result = serverAlarmService.solveAlarm(alarmInfoId);
+        Integer result = serverAlarmService.solveAlarm(alarmInfoId, desc);
         if(result > 0)
             return "success";
         else

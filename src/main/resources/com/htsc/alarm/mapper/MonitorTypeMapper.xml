@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.htsc.alarm.domain.MonitorType">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="type_desc" jdbcType="VARCHAR" property="typeDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -36,7 +36,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, desc
+    id, name, type_desc
   </sql>
   <select id="selectByExample" parameterType="com.htsc.alarm.domain.MonitorTypeExample" resultMap="BaseResultMap">
     select
@@ -64,9 +64,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.htsc.alarm.domain.MonitorType">
-    insert into monitor_type (id, name, desc
+    insert into monitor_type (id, name, type_desc
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{typeDesc,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.htsc.alarm.domain.MonitorType">
@@ -78,8 +78,8 @@
       <if test="name != null">
         name,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="typeDesc != null">
+        type_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -89,8 +89,8 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="typeDesc != null">
+        #{typeDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -106,8 +106,8 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="typeDesc != null">
+        type_desc = #{typeDesc,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -115,7 +115,7 @@
   <update id="updateByPrimaryKey" parameterType="com.htsc.alarm.domain.MonitorType">
     update monitor_type
     set name = #{name,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR}
+      type_desc = #{typeDesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllRecords" resultMap="BaseResultMap">

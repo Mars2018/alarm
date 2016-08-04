@@ -1,12 +1,8 @@
 package com.htsc.alarm.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.htsc.alarm.cfg.MonitorSvcConfig;
 import com.htsc.alarm.common.bean.Result;
-import com.htsc.alarm.dao.HostDoaminMapper;
-import com.htsc.alarm.dao.ItemDomainMapper;
-import com.htsc.alarm.dao.ServiceDomainMapper;
-import com.htsc.alarm.dao.TriggerDomainMapper;
+import com.htsc.alarm.dao.*;
 import com.htsc.alarm.domain.*;
 import com.htsc.alarm.service.AlarmConfigService;
 import com.htsc.alarm.vo.*;
@@ -40,6 +36,12 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
 
     @Autowired
     private TriggerDomainMapper triggerDomainMapper;
+
+    @Autowired
+    private MonitorTypeMapper monitorTypeMapper;
+
+    @Autowired
+    private MonitorTargetMapper monitorTargetMapper;
 
 
 
@@ -255,7 +257,8 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         sd.setServiceStart(servicesReq.getServiceStart());
         sd.setServiceEnd((servicesReq.getServiceEnd()));
         sd.setServiceActive(servicesReq.getServiceActive());
-        sd.setDependencies(JSON.toJSONString(servicesReq.getDependencies()));
+        sd.setDependencies(servicesReq.getDependencies());
+        sd.setItemId(servicesReq.getItemId());
         return sd;
     }
 
@@ -279,8 +282,8 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         for(int i = 0; i < itemsReqs.size(); ++i) {
             ItemDomain itemDomain = new ItemDomain();
             itemDomain.setItemName(itemsReqs.get(i).getName());
-            itemDomain.setMonitorType(MonitorSvcConfig.MonitorTypes[itemsReqs.get(i).getMonitorTypeNo()-1]);
-            itemDomain.setMonitorTarget(MonitorSvcConfig.MonitorTargets[itemsReqs.get(i).getMonitorTypeNo()-1][itemsReqs.get(i).getMonitorTypeNo()-1]);
+            itemDomain.setMonitorType(getMonitorType(itemsReqs.get(i).getMonitorTypeNo()));
+            itemDomain.setMonitorTarget(getMonitorTarget(itemsReqs.get(i).getMonitorTypeNo()));
             itemDomain.setHostId(itemsReqs.get(i).getHostId());
             itemDomain.setUpdateInterval(itemsReqs.get(i).getUpdateInterval());
             itemDomain.setHistoryKeep(itemsReqs.get(i).getHistoryKeep());
@@ -305,5 +308,13 @@ public class AlarmConfigServiceImpl implements AlarmConfigService {
         AlarmConfig alarmConfig = new AlarmConfig();
 
         return alarmConfig;
+    }
+
+    public  String getMonitorType(Integer typeId){
+        return monitorTypeMapper.selectByPrimaryKey(typeId).getName();
+    }
+
+    public  String getMonitorTarget(Integer targetId){
+        return monitorTargetMapper.selectByPrimaryKey(targetId).getName();
     }
 }

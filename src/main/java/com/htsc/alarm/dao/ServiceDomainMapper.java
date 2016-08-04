@@ -35,4 +35,5 @@ public interface ServiceDomainMapper {
 
     ServiceDomain queryServiceByHostItem(@Param("host") Integer hostId, @Param("item") Integer itemId);
 
+    List<ServiceDomain> selectAllRecords();
 }

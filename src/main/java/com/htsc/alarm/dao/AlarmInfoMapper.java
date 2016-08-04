@@ -27,5 +27,5 @@ public interface AlarmInfoMapper {
 
     Integer countAlarmInfos();
 
-    Integer updateAlarmClear(Integer alarmId);
+    Integer updateAlarmClear(@Param("alarmId")Integer alarmId, @Param("record")String record);
 }

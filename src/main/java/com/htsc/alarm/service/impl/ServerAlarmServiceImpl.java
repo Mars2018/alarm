@@ -1,7 +1,6 @@
 package com.htsc.alarm.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.htsc.alarm.common.util.IPUtils;
 import com.htsc.alarm.dao.*;
 import com.htsc.alarm.domain.*;
@@ -77,21 +76,18 @@ public class ServerAlarmServiceImpl implements ServerAlarmService {
             alarm.setAlarmValue(serverAlarmInfos.get(i).getValue().toString());
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             alarm.setStartDatetime(new Date());
-
             String judgmentCondition = trigger.getJudgmentCondition();
             Boolean result = false;
+            List<Integer> params = JSON.parseArray(trigger.getParameters(), Integer.class);
             if(judgmentCondition.equals("gt")){
-                Integer param = Integer.parseInt(trigger.getParameters());
-                if(serverAlarmInfos.get(i).getValue() > param ){
+                if(serverAlarmInfos.get(i).getValue() > params.get(0) ){
                     result = true;
                 }
             }else if (judgmentCondition.equals("lt")){
-                Integer param = Integer.parseInt(trigger.getParameters());
-                if(serverAlarmInfos.get(i).getValue() < param ){
+                if(serverAlarmInfos.get(i).getValue() < params.get(0)  ){
                     result = true;
                 }
             }else if (judgmentCondition.equals("notbetween")){
-                List<Integer> params = JSON.parseArray(trigger.getParameters(), Integer.class);
                 if(serverAlarmInfos.get(i).getValue() < params.get(0) || serverAlarmInfos.get(i).getValue() > params.get(1))
                     result = true;
             }
@@ -106,8 +102,8 @@ public class ServerAlarmServiceImpl implements ServerAlarmService {
     }
 
     @Override
-    public Integer solveAlarm(Integer alarmInfoId) {
-        Integer result  = alarmInfoMapper.updateAlarmClear(alarmInfoId);
+    public Integer solveAlarm(Integer alarmInfoId, String clearRecord) {
+        Integer result  = alarmInfoMapper.updateAlarmClear(alarmInfoId, clearRecord);
         return result;
 
     }

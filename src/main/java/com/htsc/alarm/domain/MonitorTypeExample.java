@@ -234,73 +234,73 @@ public class MonitorTypeExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNull() {
-            addCriterion("desc is null");
+        public Criteria andTypeDescIsNull() {
+            addCriterion("type_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNotNull() {
-            addCriterion("desc is not null");
+        public Criteria andTypeDescIsNotNull() {
+            addCriterion("type_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescEqualTo(String value) {
-            addCriterion("desc =", value, "desc");
+        public Criteria andTypeDescEqualTo(String value) {
+            addCriterion("type_desc =", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotEqualTo(String value) {
-            addCriterion("desc <>", value, "desc");
+        public Criteria andTypeDescNotEqualTo(String value) {
+            addCriterion("type_desc <>", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThan(String value) {
-            addCriterion("desc >", value, "desc");
+        public Criteria andTypeDescGreaterThan(String value) {
+            addCriterion("type_desc >", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThanOrEqualTo(String value) {
-            addCriterion("desc >=", value, "desc");
+        public Criteria andTypeDescGreaterThanOrEqualTo(String value) {
+            addCriterion("type_desc >=", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThan(String value) {
-            addCriterion("desc <", value, "desc");
+        public Criteria andTypeDescLessThan(String value) {
+            addCriterion("type_desc <", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThanOrEqualTo(String value) {
-            addCriterion("desc <=", value, "desc");
+        public Criteria andTypeDescLessThanOrEqualTo(String value) {
+            addCriterion("type_desc <=", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLike(String value) {
-            addCriterion("desc like", value, "desc");
+        public Criteria andTypeDescLike(String value) {
+            addCriterion("type_desc like", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotLike(String value) {
-            addCriterion("desc not like", value, "desc");
+        public Criteria andTypeDescNotLike(String value) {
+            addCriterion("type_desc not like", value, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescIn(List<String> values) {
-            addCriterion("desc in", values, "desc");
+        public Criteria andTypeDescIn(List<String> values) {
+            addCriterion("type_desc in", values, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotIn(List<String> values) {
-            addCriterion("desc not in", values, "desc");
+        public Criteria andTypeDescNotIn(List<String> values) {
+            addCriterion("type_desc not in", values, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescBetween(String value1, String value2) {
-            addCriterion("desc between", value1, value2, "desc");
+        public Criteria andTypeDescBetween(String value1, String value2) {
+            addCriterion("type_desc between", value1, value2, "typeDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotBetween(String value1, String value2) {
-            addCriterion("desc not between", value1, value2, "desc");
+        public Criteria andTypeDescNotBetween(String value1, String value2) {
+            addCriterion("type_desc not between", value1, value2, "typeDesc");
             return (Criteria) this;
         }
     }

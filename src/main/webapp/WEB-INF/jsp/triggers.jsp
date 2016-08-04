@@ -9,141 +9,7 @@
 <html>
 <head>
     <%@include file="common-header.jsp"%>
-    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
-    <script>
-        var typeData;
-        var targetData;
-        $(document).ready(function () {
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    typeData = eval(data);
-                    debugger;
-                    $.each(typeData,function (index, item) {
-                        debugger;
-                        var html = '';
-                        html += '<option value='+ item.id+'>'+item.name+'</option>';
-                        $("#monitorType").append(html);
-                    });
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
 
-            });
-            $("#monitorType").show();
-        });
-
-        $(document).ready(function () {
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    targetData = eval(data);
-                    debugger;
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-        });
-
-        function serializeFromToJson($selector) {
-            var o = {};
-            var a = $selector.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        }
-        function saveHost() {
-            //  debugger;
-            $.ajax({
-                type:'POST',
-                async:false,
-                url: "http://localhost:8081/alarm/config/host/insert",
-                data:"["+JSON.stringify(serializeFromToJson($("#hostForm")))+"]",
-                dataType:'json',
-                contentType: "application/json;charset=UTF-8",
-                success:function (data) {
-                    $("#hostForm").clear;
-                    alert("插入成功！");
-                },
-                error:function (data) {
-                    alert("插入失败...."+data);
-                }
-            })
-        }
-
-        function cancleHost() {
-            $("#hostForm").clean();
-        }
-
-        function loadMonitorType(){
-            var mySelect = document.getElementById("monitorType");
-            debugger;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    var datas = eval(data);
-                    $.each(datas,function (index, item) {
-                        debugger;
-                        var html = '';
-                        html += '<option value='+ item.id+'>'+item.name+'</option>';
-                        $("#monitorType").append(html);
-                    });
-
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-            $("#monitorType").show();
-
-        }
-
-        $("#monitorType").change(function () {
-            debugger;
-            var type = $("#monitorType").val();
-            $.each(targetData,function (index, item) {
-                debugger;
-                var html = '';
-                if(item.typeId == type) {
-                    html += '<option value=' + item.id + '>' + item.name + '</option>';
-                    $("#monitorTarget").append(html);
-                }
-            });
-        });
-
-        function saveItem() {
-
-        }
-
-        function cancleItem() {
-
-        }
-
-    </script>
 </head>
 <body>
 <%@include file="common-title.jsp"%>
@@ -186,7 +52,7 @@
                         <!--Header end-->
                         <!--content start-->
                         <div class="box-content">
-                            <form class="form-horizontal" id="itemForm" method="post" action="">
+                            <form class="form-horizontal" id="triggerForm" method="post" action="">
                                 <fieldset>
                                     <div class="control-group">
                                         <label class="control-label" for="triggerName">Trigger name</label>
@@ -196,19 +62,26 @@
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="statisticalMethod" >Statistical Method</label>
-                                        <div class="controls" onload="loadMonitorType()">
-                                            <select id="statisticalMethod" name="statisticalMethod" data-rel="chosen">
-
+                                        <label class="control-label" for="monitorItem">Monitor Item</label>
+                                          <div class="controls">
+                                            <select id="monitorItem" name="itemId">
                                             </select>
-                                        </div>
+                                           </div>
                                     </div>
 
                                     <div class="control-group">
+                                        <label class="control-label" for="statisticalMethod" >Statistical Method</label>
+                                        <div class="controls">
+                                            <select id="statisticalMethod" name="statisticalMethod" data-rel="chosen">
+                                                <option value="max" selected='selected'> max </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
                                         <label class="control-label" for="judgmentCondition" >Statistical Method</label>
-                                        <div class="controls" onload="loadMonitorType()">
+                                        <div class="controls">
                                             <select id="judgmentCondition" name="judgmentCondition" data-rel="chosen">
-                                                <option value="gt"> >= </option>
+                                                <option value="gt" selected='selected'> >= </option>
                                                 <option value="lt"> <= </option>
                                                 <option value="between"> <= AND >= </option>
                                             </select>
@@ -221,39 +94,9 @@
                                             <input class="input-xlarge focused" id="parameters" name="parameters" type="text">
                                         </div>
                                     </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="monitorTarget">Monitor Target</label>
-                                        <div class="controls">
-                                            <select id="monitorTarget" name="monitorTargetNo" data-rel="chosen">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label" for="monitorHost">Monitor Host</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="monitorHost" name="hostId" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="updateInterval">Update Interval</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="updateInterval" name="updateInterval" type="text">
-                                        </div>
-                                    </div>
-
-                                    <div class="control-group">
-                                        <label class="control-label" for="historyKeep">History Keep</label>
-                                        <div class="controls">
-                                            <input class="input-xlarge focused" id="historyKeep" name="historyKeep" type="text">
-                                        </div>
-                                    </div>
-
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-primary" id="itemSubmit" onclick="saveItem()">Save Host</button>
-                                        <button class="btn", id="itemCancel", onclick="cancleItem()">Cancel</button>
+                                        <button type="submit" class="btn btn-primary" id="itemSubmit" onclick="saveTrigger()">Save Trigger</button>
+                                        <button class="btn", id="itemCancel", onclick="cancleTrigger()">Cancel</button>
                                     </div>
                                 </fieldset>
                             </form>
@@ -273,5 +116,75 @@
 </div>
 
 <%@include file="common-footer.jsp"%>
+<script>
+        var typeData;
+        var targetData;
+        var itemData
+         $(document).ready(function () {
+            $.ajax({
+                   type:"GET",
+                   url: "http://localhost:8081/alarm/monitor/query/monitorItem",
+                   dataType : "json",
+                   success:function(data){
+                        debugger;
+                        itemData = eval(data);
+                        debugger;
+                       $.each(itemData,function (index, item) {
+                              debugger;
+                              var html = '';
+                              html += '<option value=' + item.itemId + '>' + item.itemName + '</option>';
+                              $("#monitorItem").append(html);
+
+                       });
+                   },
+                  error:function (e) {
+                        debugger;
+                        alert(e);
+                 }
+
+            });
+         });
+
+
+        function serializeFromToJson($selector) {
+            var o = {};
+            var a = $selector.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        }
+        function saveTrigger() {
+            //  debugger;
+            $.ajax({
+                type:'POST',
+                async:false,
+                url: "http://localhost:8081/alarm/config/trigger/insert",
+                data:"["+JSON.stringify(serializeFromToJson($("#triggerForm")))+"]",
+                dataType:'json',
+                contentType: "application/json;charset=UTF-8",
+                success:function (data) {
+                    $("#triggerForm").clear;
+                    alert("插入成功！");
+                },
+                error:function (data) {
+                    alert("插入失败...."+data);
+                }
+            })
+        }
+
+        function cancleTrigger() {
+            $("#triggerForm").clean();
+        }
+
+
+    </script>
 </body>
 </html>

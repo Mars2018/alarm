@@ -30,4 +30,6 @@ public interface TriggerDomainMapper {
     int updateByPrimaryKey(TriggerDomain record);
 
     int getPrimaryKey(TriggerDomain trigger);
+
+    List<TriggerDomain> selectAllRecords();
 }

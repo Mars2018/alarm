@@ -1,8 +1,6 @@
 package com.htsc.alarm.service;
 
-import com.htsc.alarm.domain.HostDomain;
-import com.htsc.alarm.domain.MonitorTarget;
-import com.htsc.alarm.domain.MonitorType;
+import com.htsc.alarm.domain.*;
 
 import java.util.List;
 
@@ -16,4 +14,10 @@ public interface MonitorService {
     List<MonitorTarget> selectAllMonitorTarget();
 
     List<HostDomain> selectAllMonitorHost();
+
+    List<ItemDomain> selectAllItem();
+
+    List<TriggerDomain> selectAllTrigger();
+
+    List<ServiceDomain> selectAllService();
 }

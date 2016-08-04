@@ -214,7 +214,7 @@
                                     </div>
 
                                     <div class="control-group">
-                                        <label class="control-label" for="hostEnable">Modern Select</label>
+                                        <label class="control-label" for="hostEnable">Enable</label>
                                         <div class="controls">
                                             <select id="hostEnable" name="enable" data-rel="chosen">
                                                 <option value="1" selected="selected">Yes</option>

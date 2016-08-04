@@ -12,5 +12,5 @@ public interface ServerAlarmService {
 
     List<AlarmInfo> severAlarmJudge(String alarmInfo, HttpServletRequest request);
 
-    Integer solveAlarm(Integer alarmInfoId);
+    Integer solveAlarm(Integer alarmInfoId, String desc);
 }

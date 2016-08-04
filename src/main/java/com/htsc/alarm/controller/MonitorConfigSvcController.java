@@ -1,8 +1,6 @@
 package com.htsc.alarm.controller;
 
-import com.htsc.alarm.domain.HostDomain;
-import com.htsc.alarm.domain.MonitorTarget;
-import com.htsc.alarm.domain.MonitorType;
+import com.htsc.alarm.domain.*;
 import com.htsc.alarm.service.MonitorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,4 +41,24 @@ public class MonitorConfigSvcController {
         return monitorService.selectAllMonitorHost();
     }
 
+    @RequestMapping(value = "query/monitorItem", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ItemDomain> selectAllItems(){
+        List<ItemDomain> itemDomains = monitorService.selectAllItem();
+        return itemDomains;
+    }
+
+    @RequestMapping(value = "query/monitorTrigger", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TriggerDomain> selectAllTriggers(){
+        List<TriggerDomain> triggerDomains = monitorService.selectAllTrigger();
+        return triggerDomains;
+    }
+
+    @RequestMapping(value = "query/monitorService", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ServiceDomain> selectAllService(){
+        List<ServiceDomain> serviceDomains = monitorService.selectAllService();
+        return serviceDomains;
+    }
 }

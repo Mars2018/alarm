@@ -9,141 +9,7 @@
 <html>
 <head>
     <%@include file="common-header.jsp"%>
-    <script src="bootstrap/js/jquery-1.9.1.min.js"></script>
-    <script>
-        var typeData;
-        var targetData;
-        $(document).ready(function () {
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    typeData = eval(data);
-                    debugger;
-                    $.each(typeData,function (index, item) {
-                        debugger;
-                        var html = '';
-                        html += '<option value='+ item.id+'>'+item.name+'</option>';
-                        $("#monitorType").append(html);
-                    });
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
 
-            });
-            $("#monitorType").show();
-        });
-
-        $(document).ready(function () {
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    targetData = eval(data);
-                    debugger;
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-        });
-
-        function serializeFromToJson($selector) {
-            var o = {};
-            var a = $selector.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        }
-        function saveHost() {
-            //  debugger;
-            $.ajax({
-                type:'POST',
-                async:false,
-                url: "http://localhost:8081/alarm/config/host/insert",
-                data:"["+JSON.stringify(serializeFromToJson($("#hostForm")))+"]",
-                dataType:'json',
-                contentType: "application/json;charset=UTF-8",
-                success:function (data) {
-                    $("#hostForm").clear;
-                    alert("插入成功！");
-                },
-                error:function (data) {
-                    alert("插入失败...."+data);
-                }
-            })
-        }
-
-        function cancleHost() {
-            $("#hostForm").clean();
-        }
-
-        function loadMonitorType(){
-            var mySelect = document.getElementById("monitorType");
-            debugger;
-            $.ajax({
-                type:"GET",
-                url: "http://localhost:8081/alarm/monitor/query/monitorType",
-                dataType : "json",
-                success:function(data){
-                    debugger;
-                    var datas = eval(data);
-                    $.each(datas,function (index, item) {
-                        debugger;
-                        var html = '';
-                        html += '<option value='+ item.id+'>'+item.name+'</option>';
-                        $("#monitorType").append(html);
-                    });
-
-                },
-                error:function (e) {
-                    debugger;
-                    alert(e);
-                }
-
-            });
-            $("#monitorType").show();
-
-        }
-
-        $("#monitorType").change(function () {
-            debugger;
-            var type = $("#monitorType").val();
-            $.each(targetData,function (index, item) {
-                debugger;
-                var html = '';
-                if(item.typeId == type) {
-                    html += '<option value=' + item.id + '>' + item.name + '</option>';
-                    $("#monitorTarget").append(html);
-                }
-            });
-        });
-
-        function saveItem() {
-
-        }
-
-        function cancleItem() {
-
-        }
-
-    </script>
 </head>
 <body>
 <%@include file="common-title.jsp"%>
@@ -198,8 +64,8 @@
 
                                     <div class="control-group">
                                         <label class="control-label" for="monitorType" >Monitor Type</label>
-                                        <div class="controls" onload="loadMonitorType()">
-                                            <select id="monitorType" name="monitorTypeNo" data-rel="chosen">
+                                        <div class="controls">
+                                            <select id="monitorType" name="monitorTypeNo">
 
                                             </select>
                                         </div>
@@ -208,7 +74,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="monitorTarget">Monitor Target</label>
                                         <div class="controls">
-                                            <select id="monitorTarget" name="monitorTargetNo" data-rel="chosen">
+                                            <select id="monitorTarget" name="monitorTargetNo" >
 
                                             </select>
                                         </div>
@@ -216,7 +82,8 @@
                                     <div class="control-group">
                                         <label class="control-label" for="monitorHost">Monitor Host</label>
                                         <div class="controls">
-                                            <input class="input-xlarge focused" id="monitorHost" name="hostId" type="text">
+                                           <select id="monitorHost" name="hostId" >
+                                           </select>
                                         </div>
                                     </div>
 
@@ -224,6 +91,15 @@
                                         <label class="control-label" for="updateInterval">Update Interval</label>
                                         <div class="controls">
                                             <input class="input-xlarge focused" id="updateInterval" name="updateInterval" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="itemStatus">Enable</label>
+                                        <div class="controls">
+                                            <select id="itemStatus" name="status" data-rel="chosen">
+                                                <option value="1" selected="selected">Yes</option>
+                                                <option value="0">No</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -235,7 +111,7 @@
                                     </div>
 
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-primary" id="itemSubmit" onclick="saveItem()">Save Host</button>
+                                        <button type="submit" class="btn btn-primary" id="itemSubmit" onclick="saveItem()">Save Item</button>
                                         <button class="btn", id="itemCancel", onclick="cancleItem()">Cancel</button>
                                     </div>
                                 </fieldset>
@@ -256,5 +132,143 @@
 </div>
 
     <%@include file="common-footer.jsp"%>
+
+    <script>
+            var typeData;
+            var targetData;
+            var hostData;
+            $(document).ready(function () {
+                $.ajax({
+                    type:"GET",
+                    url: "http://localhost:8081/alarm/monitor/query/monitorType",
+                    dataType : "json",
+                    success:function(data){
+                        debugger;
+                        typeData = eval(data);
+                        debugger;
+                        $.each(typeData,function (index, item) {
+                            debugger;
+                            var html = '';
+                            html += '<option value='+ item.id+'>'+item.name+'</option>';
+                            $("#monitorType").append(html);
+                        });
+                    },
+                    error:function (e) {
+                        debugger;
+                        alert(e);
+                    }
+
+                });
+                $("#monitorType").show();
+            });
+
+            $(document).ready(function () {
+                $.ajax({
+                    type:"GET",
+                    url: "http://localhost:8081/alarm/monitor/query/monitorTarget",
+                    dataType : "json",
+                    success:function(data){
+                        debugger;
+                        targetData = eval(data);
+                        debugger;
+                        var type = $("#monitorType").val();
+                        $.each(targetData,function (index, item) {
+                            debugger;
+                            var html = '';
+                            if(item.typeId == type) {
+                                html += '<option value=' + item.id + '>' + item.name + '</option>';
+                                $("#monitorTarget").append(html);
+                            }
+                        });
+                    },
+                    error:function (e) {
+                        debugger;
+                        alert(e);
+                    }
+
+                });
+            });
+
+             $("#monitorType").change(function () {
+                debugger;
+                var type = $("#monitorType").val();
+                $("#monitorTarget").empty();
+                $.each(targetData,function (index, item) {
+                    debugger;
+                    var html = '';
+                    if(item.typeId == type) {
+                        html += '<option value=' + item.id + '>' + item.name + '</option>';
+                        $("#monitorTarget").append(html);
+                    }
+                 });
+             });
+
+              $(document).ready(function () {
+                   $.ajax({
+                        type:"GET",
+                        url: "http://localhost:8081/alarm/monitor/query/monitorHost",
+                        dataType : "json",
+                        success:function(data){
+                             debugger;
+                             hostData = eval(data);
+                             debugger;
+                             $.each(hostData,function (index, item) {
+                                debugger;
+                                var html = '';
+                                html += '<option value=' + item.hostId + '>' + item.hostName + '</option>';
+                                $("#monitorHost").append(html);
+
+                             });
+                        },
+                        error:function (e) {
+                            debugger;
+                            alert(e);
+                        }
+
+                    });
+              });
+
+
+            function serializeFromToJson($selector) {
+                var o = {};
+                var a = $selector.serializeArray();
+                $.each(a, function() {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [ o[this.name] ];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            }
+
+
+            function saveItem() {
+                $.ajax({
+                    type:'POST',
+                    async:false,
+                    url: "http://localhost:8081/alarm/config/item/insert",
+                    data:"["+JSON.stringify(serializeFromToJson($("#itemForm")))+"]",
+                    dataType:'json',
+                    contentType: "application/json;charset=UTF-8",
+                    success:function (data) {
+                        $("#itemForm").clear;
+                        alert("插入成功！");
+                     },
+                    error:function (data) {
+                        alert("插入失败...."+data);
+                    }
+                })
+            }
+
+            function cancleItem() {
+                $("#itemForm").clean();
+            }
+
+        </script>
+
 </body>
 </html>

@@ -12,17 +12,19 @@ public class ConfigAlarmServicesReq {
 
     private Integer hostId;
 
-    private Integer status;
+    private Integer itemId;
 
     private Integer triggerId;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Integer status;
+
+ //   @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date serviceStart;
 
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+ //   @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date serviceEnd;
 
-    private List<Integer> dependencies;
+    private String dependencies;
 
     private String serviceActive;
 
@@ -66,13 +68,6 @@ public class ConfigAlarmServicesReq {
         this.serviceEnd = serviceEnd;
     }
 
-    public List<Integer> getDependencies() {
-        return dependencies;
-    }
-
-    public void setDependencies(List<Integer> dependencies) {
-        this.dependencies = dependencies;
-    }
 
     public String getServiceActive() {
         return serviceActive;
@@ -80,5 +75,21 @@ public class ConfigAlarmServicesReq {
 
     public void setServiceActive(String serviceActive) {
         this.serviceActive = serviceActive;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(String dependencies) {
+        this.dependencies = dependencies;
     }
 }

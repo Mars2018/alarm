@@ -10,10 +10,10 @@ import com.htsc.alarm.vo.ConfigAlarmServicesReq;
 import com.htsc.alarm.vo.ConfigAlarmTriggersReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -24,9 +24,10 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/config")
 public class AlarmConfigSvcController extends BeanController {
+
     private static final Logger LOG = LoggerFactory.getLogger(AlarmConfigSvcController.class);
 
-    @Autowired
+    @Resource(name = "alarmConfigService")
     private AlarmConfigService alarmConfigService;
 
     @RequestMapping(value = "/host/insert", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
@@ -59,7 +60,7 @@ public class AlarmConfigSvcController extends BeanController {
 
     @RequestMapping(value = "/item/insert", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public Result insertItems(@RequestParam("items") String items, HttpServletRequest request){
+    public Result insertItems(@RequestBody String items, HttpServletRequest request){
         List<ConfigAlarmItemsReq> itemsReqs = JSON.parseArray(items, ConfigAlarmItemsReq.class);
         LOG.debug("Get items:[]" + itemsReqs.toString());
         return alarmConfigService.insertItems(itemsReqs);
@@ -83,7 +84,7 @@ public class AlarmConfigSvcController extends BeanController {
 
     @RequestMapping(value = "/service/insert", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public Result insertService(@RequestParam("service") String serviceString, HttpServletRequest request){
+    public Result insertService(@RequestBody String serviceString, HttpServletRequest request){
         ConfigAlarmServicesReq servicesReq = JSON.parseObject(serviceString, ConfigAlarmServicesReq.class);
         LOG.debug("Get services:[]", servicesReq.toString());
         Result result = alarmConfigService.insertServices(servicesReq);
@@ -110,7 +111,7 @@ public class AlarmConfigSvcController extends BeanController {
 
     @RequestMapping(value = "trigger/insert", produces = "application/json; charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
-    public Result insertTrigger(@RequestParam("triggers") String triggersString, HttpServletRequest request){
+    public Result insertTrigger(@RequestBody String triggersString, HttpServletRequest request){
         List<ConfigAlarmTriggersReq> configAlarmTriggersReqs = JSON.parseArray(triggersString, ConfigAlarmTriggersReq.class);
         LOG.debug("Get triggers:[]", configAlarmTriggersReqs.toString());
         Result result = alarmConfigService.insertTriggers(configAlarmTriggersReqs);
